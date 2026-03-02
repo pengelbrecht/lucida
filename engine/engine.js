@@ -5,7 +5,7 @@ const total = slides.length;
 let current = 0;
 
 function go(n) {
-    if (n < 0 || n >= total) return;
+    if (total === 0 || n < 0 || n >= total) return;
     slides[current].classList.remove('active');
     current = n;
     slides[current].classList.add('active');

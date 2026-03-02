@@ -92,7 +92,7 @@ th {
     border-bottom: 2px solid var(--border);
 }
 th:last-child, td:last-child { text-align: right; padding-right: 0; }
-td { padding: 6px 10px 6px 0; border-bottom: 1px solid #f0f0ec; }
+td { padding: 6px 10px 6px 0; border-bottom: 1px solid var(--border); }
 
 /* Stat boxes */
 .stat-box {
@@ -128,7 +128,7 @@ td { padding: 6px 10px 6px 0; border-bottom: 1px solid #f0f0ec; }
 /* Bar chart */
 .bar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
 .bar-label { font-size: 12px; min-width: 90px; text-align: right; }
-.bar-track { flex: 1; height: 22px; background: #f0f0ec; border-radius: 4px; overflow: hidden; }
+.bar-track { flex: 1; height: 22px; background: var(--border); border-radius: 4px; overflow: hidden; }
 .bar-fill { height: 100%; border-radius: 4px; transition: width 0.5s; }
 .bar-value { font-size: 12px; font-weight: 600; min-width: 50px; }
 
@@ -168,7 +168,7 @@ td { padding: 6px 10px 6px 0; border-bottom: 1px solid #f0f0ec; }
 
 .summary-total {
     display: flex; align-items: center; justify-content: center; gap: 24px;
-    margin-top: 28px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.1);
+    margin-top: 28px; padding-top: 24px; border-top: 1px solid color-mix(in srgb, currentColor 15%, transparent);
 }
 .summary-total-label { font-size: 16px; opacity: 0.7; }
 .summary-total-value { font-size: 48px; font-weight: 700; }

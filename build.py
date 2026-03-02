@@ -28,7 +28,7 @@ def fmt(text):
     text = text.replace("---", "&mdash;")
     text = text.replace("--", "&ndash;")
     # color spans: text{.red}
-    text = re.sub(r'([^{]+)\{\.(\w+)\}', r'<span style="color:var(--\2)">\1</span>', text)
+    text = re.sub(r'([^{]*?)\{\.(\w+)\}', r'<span style="color:var(--\2)">\1</span>', text)
     # bold
     text = re.sub(r'\*\*(.+?)\*\*', r'<strong>\1</strong>', text)
     return text
@@ -114,8 +114,8 @@ def render_kpis(kpis):
     for kpi in kpis:
         items.append(
             f'<div class="kpi-item">'
-            f'<div class="kpi-value">{esc(kpi["value"])}</div>'
-            f'<div class="kpi-label">{esc(kpi["label"])}</div>'
+            f'<div class="kpi-value">{esc(kpi.get("value", ""))}</div>'
+            f'<div class="kpi-label">{esc(kpi.get("label", ""))}</div>'
             f'</div>'
         )
     return f'<div class="kpi-row">{"".join(items)}</div>'
@@ -201,8 +201,8 @@ def render_stat_boxes(stat_boxes):
 
         items.append(
             f'<div class="stat-box" style="flex:1;{style}">'
-            f'<div class="stat-value" style="font-size:28px;{color_style}">{esc(sb["value"])}</div>'
-            f'<div class="stat-label">{esc(sb["label"])}</div>'
+            f'<div class="stat-value" style="font-size:28px;{color_style}">{esc(sb.get("value", ""))}</div>'
+            f'<div class="stat-label">{esc(sb.get("label", ""))}</div>'
             f'{detail}'
             f'</div>'
         )
@@ -242,6 +242,147 @@ def render_bar_chart(bar_chart):
     return "".join(parts)
 
 
+def resolve_color(raw, fallback="primary"):
+    """Normalize a color value — wrap bare names in var(--)."""
+    c = raw if raw else fallback
+    if c.startswith("var(") or c.startswith("#"):
+        return c
+    return f"var(--{c})"
+
+
+def render_donut_chart(donut):
+    """Render a donut (ring) chart with legend."""
+    segments = donut.get("segments", [])
+    size = donut.get("size", 120)
+    hole = round(size * 0.32)
+
+    cumulative = 0
+    gradient_parts = []
+    for seg in segments:
+        val = float(seg.get("value", 0) or 0)
+        color = resolve_color(seg.get("color"))
+        start = cumulative
+        cumulative += val
+        gradient_parts.append(f"{color} {start}% {cumulative}%")
+
+    gradient = f"conic-gradient({', '.join(gradient_parts)})"
+    mask = f"radial-gradient(circle, transparent {hole}px, black {hole + 1}px)"
+
+    legend_items = []
+    for seg in segments:
+        color = resolve_color(seg.get("color"))
+        display_val = seg.get("display", f"{seg.get('value', 0)}%")
+        legend_items.append(
+            f'<div class="donut-legend-item">'
+            f'<div class="donut-legend-dot" style="background:{color}"></div>'
+            f'<span>{esc(seg.get("label", ""))}</span>'
+            f'<span class="donut-legend-value">{esc(display_val)}</span>'
+            f'</div>'
+        )
+
+    return (
+        f'<div class="donut-chart">'
+        f'<div class="donut-ring" style="width:{size}px;height:{size}px;background:{gradient};-webkit-mask:{mask};mask:{mask};"></div>'
+        f'<div class="donut-legend">{"".join(legend_items)}</div>'
+        f'</div>'
+    )
+
+
+def render_line_chart(chart):
+    """Render an SVG line chart."""
+    lines = chart.get("lines", [])
+    x_labels = chart.get("x_labels", [])
+    height = chart.get("height", 120)
+    vb_width = 400
+
+    # Collect all numeric values for scaling
+    all_values = []
+    for line in lines:
+        for p in line.get("points", []):
+            try:
+                all_values.append(float(p))
+            except (ValueError, TypeError):
+                pass
+    if not all_values:
+        return ""
+
+    min_v = min(all_values)
+    max_v = max(all_values)
+    rng = max_v - min_v or 1
+    pad = rng * 0.12
+
+    def map_y(v):
+        return height - ((v - min_v + pad) / (rng + pad * 2)) * height
+
+    svg_parts = []
+
+    # Grid lines
+    grid_steps = 3
+    for i in range(grid_steps + 1):
+        y = (i / grid_steps) * height
+        svg_parts.append(
+            f'<line x1="0" y1="{y}" x2="{vb_width}" y2="{y}" stroke="var(--border)" stroke-width="0.5" opacity="0.6"/>'
+        )
+
+    legend_items = []
+
+    for line in lines:
+        raw_points = line.get("points", [])
+        points = []
+        for p in raw_points:
+            try:
+                points.append(float(p))
+            except (ValueError, TypeError):
+                pass
+        if not points:
+            continue
+        color = resolve_color(line.get("color"))
+
+        coords = []
+        for i, v in enumerate(points):
+            x = (i / (len(points) - 1)) * vb_width if len(points) > 1 else vb_width / 2
+            coords.append(f"{x:.1f},{map_y(v):.1f}")
+
+        # Area fill
+        if line.get("fill") is not False:
+            svg_parts.append(
+                f'<polygon points="{" ".join(coords)} {vb_width},{height} 0,{height}" fill="{color}" opacity="0.07"/>'
+            )
+
+        # Line
+        svg_parts.append(
+            f'<polyline points="{" ".join(coords)}" fill="none" stroke="{color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>'
+        )
+
+        # Dots
+        for c in coords:
+            cx, cy = c.split(",")
+            svg_parts.append(f'<circle cx="{cx}" cy="{cy}" r="3" fill="{color}"/>')
+
+        legend_items.append(
+            f'<div class="line-chart-legend-item">'
+            f'<div class="donut-legend-dot" style="background:{color}"></div>'
+            f'<span>{esc(line.get("label", ""))}</span>'
+            f'</div>'
+        )
+
+    labels_html = ""
+    if x_labels:
+        labels_html = f'<div class="line-chart-labels">{"".join(f"<span>{esc(l)}</span>" for l in x_labels)}</div>'
+
+    legend_html = ""
+    if len(legend_items) > 1:
+        legend_html = f'<div class="line-chart-legend">{"".join(legend_items)}</div>'
+
+    return (
+        f'<div class="line-chart">'
+        f'<svg viewBox="0 0 {vb_width} {height}" preserveAspectRatio="none">{"".join(svg_parts)}</svg>'
+        f'{labels_html}'
+        f'{legend_html}'
+        f'</div>'
+    )
+
+
 def render_bullets(bullets):
     """Render a bullet list."""
     items = []
@@ -261,8 +402,8 @@ def render_summary_grid(sg):
         val_style = f' style="color:var(--{color})"' if color else ""
         items.append(
             f'<div class="summary-item">'
-            f'<div class="summary-item-value"{val_style}>{esc(item["value"])}</div>'
-            f'<div class="summary-item-label">{esc(item["label"])}</div>'
+            f'<div class="summary-item-value"{val_style}>{esc(item.get("value", ""))}</div>'
+            f'<div class="summary-item-label">{esc(item.get("label", ""))}</div>'
             f'</div>'
         )
 
@@ -270,8 +411,8 @@ def render_summary_grid(sg):
     if sg.get("total"):
         total = (
             f'<div class="summary-total">'
-            f'<span class="summary-total-label">{esc(sg["total"]["label"])}</span>'
-            f'<span class="summary-total-value">{esc(sg["total"]["value"])}</span>'
+            f'<span class="summary-total-label">{esc(sg["total"].get("label", ""))}</span>'
+            f'<span class="summary-total-value">{esc(sg["total"].get("value", ""))}</span>'
             f'</div>'
         )
 
@@ -297,7 +438,7 @@ def render_quadrant_grid(qg):
             if isinstance(item, dict):
                 item_style = item.get("style", "")
                 style_attr = f' style="{item_style}"' if item_style else ""
-                items_html += f'<li{style_attr}>{esc(item["text"])}</li>'
+                items_html += f'<li{style_attr}>{esc(item.get("text", ""))}</li>'
             else:
                 items_html += f"<li>{esc(item)}</li>"
 
@@ -329,8 +470,8 @@ def render_actions(actions):
 
 
 COMPONENT_KEYS = (
-    "callout", "table", "stat_boxes", "bar_chart", "kpis", "bullets",
-    "actions", "summary_grid", "html",
+    "callout", "table", "stat_boxes", "bar_chart", "donut_chart", "line_chart",
+    "kpis", "bullets", "actions", "summary_grid", "quadrant_grid", "html",
 )
 
 _COMPONENT_RENDERERS = {
@@ -338,10 +479,13 @@ _COMPONENT_RENDERERS = {
     "table": render_table,
     "stat_boxes": render_stat_boxes,
     "bar_chart": render_bar_chart,
+    "donut_chart": render_donut_chart,
+    "line_chart": render_line_chart,
     "kpis": render_kpis,
     "bullets": render_bullets,
     "actions": render_actions,
     "summary_grid": render_summary_grid,
+    "quadrant_grid": render_quadrant_grid,
 }
 
 
@@ -459,10 +603,7 @@ def render_slide(slide, index, logo_html=""):
     # Body components (top-level, before any layout)
     for key in ("kpis", "bullets", "summary_grid", "quadrant_grid", "actions"):
         if key in slide:
-            if key == "quadrant_grid":
-                parts.append(render_quadrant_grid(slide[key]))
-            else:
-                parts.append(render_component(key, slide[key]))
+            parts.append(render_component(key, slide[key]))
 
     # Table at slide level (not in a card)
     if "table" in slide and "columns" not in slide and "layout" not in slide:
@@ -584,11 +725,9 @@ def build(content_path):
 </body>
 </html>"""
 
-    # Write output
-    dist_dir = Path(__file__).parent / "dist"
-    dist_dir.mkdir(exist_ok=True)
+    # Write output to current working directory
     out_name = content_path.stem.replace(".slides", "") + "-slides.html"
-    out_path = dist_dir / out_name
+    out_path = Path.cwd() / out_name
     out_path.write_text(html)
     print(f"Built: {out_path}")
     return out_path

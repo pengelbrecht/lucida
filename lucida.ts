@@ -7,7 +7,9 @@ import { execSync } from "child_process";
 import { fileURLToPath } from "url";
 import yaml from "js-yaml";
 
-const ROOT = dirname(fileURLToPath(import.meta.url));
+// Package root — works both for `node lucida.ts` (dev) and `dist-cli/lucida.js` (npm)
+const __dir = dirname(fileURLToPath(import.meta.url));
+const ROOT = basename(__dir) === "dist-cli" ? resolve(__dir, "..") : __dir;
 
 // ---------------------------------------------------------------------------
 // Text formatting
@@ -18,7 +20,7 @@ function fmt(text: unknown): string {
   let s = String(text);
   s = s.replace(/---/g, "&mdash;");
   s = s.replace(/--/g, "&ndash;");
-  s = s.replace(/([^{]+)\{\.(\w+)\}/g, '<span style="color:var(--$2)">$1</span>');
+  s = s.replace(/([^{]*?)\{\.(\w+)\}/g, '<span style="color:var(--$2)">$1</span>');
   s = s.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
   return s;
 }
@@ -258,10 +260,13 @@ function renderLineChart(chart: any): string {
   const height = chart.height ?? 120;
   const vbWidth = 400;
 
-  // Collect all values for scaling
+  // Collect all values for scaling (skip non-numeric)
   const allValues: number[] = [];
   for (const line of lines) {
-    for (const p of line.points ?? []) allValues.push(Number(p));
+    for (const p of line.points ?? []) {
+      const n = Number(p);
+      if (!isNaN(n)) allValues.push(n);
+    }
   }
   if (!allValues.length) return "";
 
@@ -287,7 +292,8 @@ function renderLineChart(chart: any): string {
   const legendItems: string[] = [];
 
   for (const line of lines) {
-    const points: number[] = (line.points ?? []).map(Number);
+    const points: number[] = (line.points ?? []).map(Number).filter((n: number) => !isNaN(n));
+    if (!points.length) continue;
     const color = resolveColor(line.color);
 
     const coords = points.map((v, i) => {
@@ -425,7 +431,7 @@ function renderActions(actions: any[]): string {
 
 const COMPONENT_KEYS = [
   "callout", "table", "stat_boxes", "bar_chart", "donut_chart", "line_chart",
-  "kpis", "bullets", "actions", "summary_grid", "html",
+  "kpis", "bullets", "actions", "summary_grid", "quadrant_grid", "html",
 ] as const;
 
 function renderComponent(key: string, data: any): string {
@@ -440,6 +446,7 @@ function renderComponent(key: string, data: any): string {
     case "bullets":     return renderBullets(data);
     case "actions":     return renderActions(data);
     case "summary_grid": return renderSummaryGrid(data);
+    case "quadrant_grid": return renderQuadrantGrid(data);
     case "html":        return data;
     default:            return "";
   }
@@ -538,10 +545,7 @@ function renderSlide(slide: any, index: number, logoHtml: string): string {
 
   // Body components
   for (const key of ["kpis", "bullets", "summary_grid", "quadrant_grid", "actions"] as const) {
-    if (key in slide) {
-      if (key === "quadrant_grid") parts.push(renderQuadrantGrid(slide[key]));
-      else parts.push(renderComponent(key, slide[key]));
-    }
+    if (key in slide) parts.push(renderComponent(key, slide[key]));
   }
 
   // Table at slide level
@@ -583,7 +587,21 @@ function getEngineFiles() {
 }
 
 async function build(contentPath: string): Promise<string> {
-  const content = yaml.load(readFileSync(contentPath, "utf-8")) as any;
+  let content: any;
+  try {
+    content = yaml.load(readFileSync(contentPath, "utf-8"));
+  } catch (err: any) {
+    if (err?.code === "ENOENT") {
+      console.error(`Error: file not found: ${contentPath}`);
+    } else {
+      console.error(`Error parsing ${contentPath}: ${err?.message ?? err}`);
+    }
+    process.exit(1);
+  }
+  if (!content || typeof content !== "object") {
+    console.error(`Error: ${contentPath} is empty or not a valid YAML document`);
+    process.exit(1);
+  }
   const meta = content.meta ?? {};
   const slides: any[] = content.slides ?? [];
 
@@ -593,8 +611,12 @@ async function build(contentPath: string): Promise<string> {
   let theme: Theme;
   try {
     theme = loadTheme(themePath);
-  } catch {
-    console.error(`Error: theme '${themeName}' not found at ${themePath}`);
+  } catch (err: any) {
+    if (err?.code === "ENOENT") {
+      console.error(`Error: theme '${themeName}' not found at ${themePath}`);
+    } else {
+      console.error(`Error loading theme '${themeName}': ${err?.message ?? err}`);
+    }
     process.exit(1);
   }
 

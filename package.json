@@ -1,6 +1,7 @@
 {
-  "name": "lucida",
+  "name": "lucida-slides",
   "version": "0.1.0",
+  "description": "YAML-native slide deck builder — content + theme → standalone HTML or 16:9 PDF",
   "type": "module",
   "bin": {
     "lucida": "./dist-cli/lucida.js"
@@ -14,6 +15,22 @@
     "build": "tsc --project tsconfig.build.json",
     "prepublishOnly": "npm run build"
   },
+  "keywords": [
+    "slides",
+    "presentation",
+    "deck",
+    "yaml",
+    "html",
+    "pdf",
+    "slide-deck",
+    "board-deck"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pengelbrecht/lucida.git"
+  },
+  "license": "MIT",
+  "author": "Peter Engelbrecht",
   "dependencies": {
     "js-yaml": "^4.1.0"
   },

@@ -1,0 +1,42 @@
+name: Demo Teal
+
+fonts:
+  import_url: "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&display=swap"
+  body: "'Inter', -apple-system, BlinkMacSystemFont, sans-serif"
+  heading: "'Playfair Display', serif"
+
+colors:
+  primary: "#0d4f4f"
+  primary_light: "#e6f3f3"
+  primary_mid: "#1a7a7a"
+  blue: "#0ea5e9"
+  blue_light: "#e0f2fe"
+  gold: "#ca8a04"
+  gold_light: "#fefce8"
+  green: "#059669"
+  green_light: "#ecfdf5"
+  green_dark: "#047857"
+  red: "#e11d48"
+  red_light: "#fff1f2"
+  amber: "#d97706"
+  amber_light: "#fffbeb"
+  bg: "#f8fafb"
+  surface: "#ffffff"
+  text: "#1e293b"
+  text_secondary: "#64748b"
+  border: "#e2e8f0"
+
+variants:
+  hero:
+    background: "linear-gradient(135deg, #042f2e 0%, #0d4f4f 40%, #1a7a7a 100%)"
+    color: "white"
+  dark:
+    background: "linear-gradient(135deg, #0f172a 0%, #1e293b 100%)"
+    color: "white"
+  warm:
+    background: "linear-gradient(135deg, #fefce8 0%, #fef9c3 100%)"
+  alert:
+    background: "linear-gradient(135deg, #fff1f2 0%, #ffe4e6 100%)"
+
+decorations:
+  top_strip: "#0d4f4f"

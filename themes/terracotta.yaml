@@ -1,0 +1,41 @@
+name: Terracotta
+
+fonts:
+  import_url: "https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=DM+Serif+Display&display=swap"
+  body: "'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif"
+  heading: "'DM Serif Display', serif"
+
+colors:
+  primary: "#C75B39"
+  primary_light: "#F4DDD4"
+  primary_mid: "#A04A2E"
+  primary_dark: "#2C1810"
+  gold: "#BF6C00"
+  gold_light: "#FFF8E1"
+  green: "#2D7A3A"
+  green_light: "#E8F5E9"
+  green_dark: "#1B5E20"
+  red: "#C62828"
+  red_light: "#FFEBEE"
+  amber: "#E65100"
+  amber_light: "#FFF3E0"
+  bg: "#FFF8F0"
+  surface: "#ffffff"
+  text: "#2C1810"
+  text_secondary: "#6B5147"
+  border: "#E8D8D0"
+
+variants:
+  hero:
+    background: "linear-gradient(135deg, #2C1810 0%, #3D261B 40%, #5A3A2A 80%, #C75B39 100%)"
+    color: "white"
+  dark:
+    background: "linear-gradient(135deg, #2C1810 0%, #3D261B 100%)"
+    color: "white"
+  warm:
+    background: "linear-gradient(135deg, #FFF8F0 0%, #F4DDD4 100%)"
+  alert:
+    background: "linear-gradient(135deg, #FFEBEE 0%, #FFCDD2 100%)"
+
+decorations:
+  top_strip: "linear-gradient(to right, #C75B39 0%, #E8A87C 50%, #C75B39 100%)"

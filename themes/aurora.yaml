@@ -1,0 +1,46 @@
+name: Aurora
+
+fonts:
+  import_url: "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,700&display=swap"
+  body: "'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif"
+  heading: "'Fraunces', serif"
+
+colors:
+  primary: "#4c1d95"
+  primary_light: "#f3f0ff"
+  primary_mid: "#7c3aed"
+  blue: "#3b82f6"
+  blue_light: "#eff6ff"
+  gold: "#f59e0b"
+  gold_light: "#fffbeb"
+  green: "#10b981"
+  green_light: "#ecfdf5"
+  green_dark: "#059669"
+  red: "#f43f5e"
+  red_light: "#fff1f2"
+  amber: "#f59e0b"
+  amber_light: "#fffbeb"
+  bg: "#fafafe"
+  surface: "#ffffff"
+  text: "#1e1b2e"
+  text_secondary: "#6b7280"
+  border: "#e5e1f0"
+
+variants:
+  hero:
+    background: "linear-gradient(135deg, #1e1044 0%, #4c1d95 40%, #7c3aed 100%)"
+    color: "white"
+  dark:
+    background: "linear-gradient(135deg, #0f0a1e 0%, #1e1044 50%, #2d1b69 100%)"
+    color: "white"
+  warm:
+    background: "linear-gradient(135deg, #fdf4ff 0%, #fae8ff 100%)"
+  alert:
+    background: "linear-gradient(135deg, #fff1f2 0%, #ffe4e6 100%)"
+
+logo:
+  svg: '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.5L21.5 12L12 21.5L2.5 12Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="12" cy="12" r="2" fill="currentColor"/></svg>'
+  text: "Nexus AI"
+
+decorations:
+  top_strip: "linear-gradient(to right, #4c1d95, #7c3aed, #a78bfa, #c084fc)"

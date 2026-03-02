@@ -1,0 +1,141 @@
+/* Slide deck engine — structural CSS */
+/* No brand colors, no fonts — those come from the theme */
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+    height: 100%;
+    overflow: hidden;
+    font-family: var(--font-body);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}
+
+.slide {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 48px 80px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s ease;
+    overflow: hidden;
+}
+
+.slide.active { opacity: 1; pointer-events: auto; }
+
+.slide-inner {
+    max-width: 1100px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.click-left {
+    position: fixed; left: 0; top: 0; width: 15%; height: 100%; z-index: 50; cursor: w-resize;
+}
+.click-right {
+    position: fixed; right: 0; top: 0; width: 15%; height: 100%; z-index: 50; cursor: e-resize;
+}
+
+.nav-bar {
+    position: fixed; bottom: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: center; gap: 16px;
+    padding: 10px 24px; background: rgba(255,255,255,0.9); backdrop-filter: blur(8px);
+    border-top: 1px solid var(--border);
+}
+.nav-label { font-size: 12px; color: var(--text-secondary); font-weight: 500; min-width: 40px; }
+.nav-progress { flex: 1; max-width: 200px; height: 3px; background: #eee; border-radius: 2px; }
+.nav-progress-fill { height: 100%; background: var(--primary); border-radius: 2px; transition: width 0.3s; }
+
+/* Top decoration strip — gradient set by theme via --top-strip */
+.top-strip {
+    position: fixed; top: 0; left: 0; right: 0; height: 4px; z-index: 100;
+    background: var(--top-strip);
+}
+.top-strip-none { display: none; }
+
+/* Slide logo — positioned from theme */
+.slide-logo {
+    position: absolute;
+    top: 48px;
+    right: 80px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: 20px;
+    color: var(--text);
+    opacity: 0.35;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.slide-logo svg {
+    height: 100%;
+    width: auto;
+    flex-shrink: 0;
+}
+
+.slide-logo-text {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+/* On dark/hero variants, logo switches to white */
+.slide-hero .slide-logo,
+.slide-dark .slide-logo {
+    color: white;
+    opacity: 0.55;
+}
+
+/* Responsive */
+@media screen and (max-width: 900px) {
+    .slide { padding: 32px 28px; }
+    .slide-title { font-size: 32px !important; }
+    .slide-logo { top: 32px; right: 28px; height: 16px; }
+    .slide-logo svg { height: 100%; width: auto; }
+    .slide-logo-text { font-size: 9px; letter-spacing: 2px; }
+    .cols, .cols-3 { grid-template-columns: 1fr !important; }
+    .kpi-row { flex-wrap: wrap; gap: 24px; }
+    .summary-grid { grid-template-columns: repeat(2, 1fr) !important; }
+    .quadrant-grid { grid-template-columns: 1fr !important; }
+}
+
+/* Print */
+@media print {
+    @page { size: 1280px 720px; margin: 0; }
+    html, body {
+        height: auto; overflow: visible;
+        background: white;
+        width: 1280px;
+    }
+    .top-strip, .nav-bar, .click-left, .click-right { display: none !important; }
+    .slide {
+        position: relative !important;
+        opacity: 1 !important;
+        pointer-events: auto !important;
+        width: 1280px !important;
+        height: 720px !important;
+        overflow: hidden !important;
+        page-break-after: always;
+        page-break-inside: avoid;
+        break-after: page;
+        break-inside: avoid;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+    .slide:last-child { page-break-after: avoid; break-after: avoid; }
+    .cols { grid-template-columns: 1fr 1fr !important; }
+    .cols-3 { grid-template-columns: 1fr 1fr 1fr !important; }
+    .summary-grid { grid-template-columns: repeat(3, 1fr) !important; }
+    .kpi-row { flex-wrap: nowrap !important; }
+    .slide { padding: 48px 80px !important; }
+    .slide-title { font-size: 42px !important; }
+    .slide-inner { transform-origin: top left; }
+}

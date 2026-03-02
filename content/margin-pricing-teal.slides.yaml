@@ -1,0 +1,417 @@
+meta:
+  title: "Margin & Pricing Analysis (Teal Theme)"
+  theme: demo-teal
+  footer: "Northside Coffee Co. &middot; Margin &amp; Pricing"
+  lang: en
+
+slides:
+  # SLIDE 1: HERO
+  - variant: hero
+    label: "Margin &amp; Pricing Analysis"
+    title: "Margin &amp; Pricing Analysis"
+    title_style: "font-size:52px;"
+    subtitle: "Where the margin goes, what the data shows, and scenarios for your decisions. Discount programs, category P&amp;L, supplier cost inflation, and shelf efficiency &mdash; all from the 2025 transaction data across four locations."
+    subtitle_style: "font-size:17px;max-width:750px;margin-bottom:8px;"
+    kpis:
+      - value: "$1.84M"
+        label: "margin given to discount programs"
+      - value: "$3.1M"
+        label: "internal cafe consumption at cost"
+      - value: "58.2%"
+        label: "clean overall GP (up from 52.1%)"
+
+  # SLIDE 2: DISCOUNT LANDSCAPE
+  - label: "Discount Programs"
+    title: "68% of bean sales are discounted &mdash; and it&rsquo;s accelerating"
+    subtitle: "These are system-configured discounts &mdash; subscription pricing, loyalty rewards, and volume tiers. Not barista discretion. Total margin given to discounts: **$1.84M**."
+    layout: cols
+    columns:
+      - card: "Discount by Product Tier (2025)"
+        table:
+          headers: ["Price Tier", "Units", "% Discounted", "Avg Depth", "$ Given"]
+          rows:
+            - ["Under $18/bag", "42,800", "48.3%", "15.1%", "$98K"]
+            - row: ["**$18&ndash;35/bag**", "186,400", "**72.1%**", "22.8%", "**$1.12M**"]
+              highlight: amber
+            - ["$35&ndash;60/bag", "38,200", "61.4%", "26.3%", "$384K"]
+            - row: ["**$60+/bag (micro-lot)**", "8,900", "58.7%", {text: "**38.4%**", color: red, bold: true}, "$241K"]
+              highlight: red
+
+      - card: "Year-over-Year Trend"
+        table:
+          headers: ["Metric", "2024", "2025", "Change"]
+          rows:
+            - ["% units discounted", "61.8%", "68.2%", {text: "+6.4 pp", color: red, bold: true}]
+            - ["Discount as % of gross", "14.6%", "17.8%", {text: "+3.2 pp", color: red, bold: true}]
+        content:
+          - callout:
+              color: amber
+              title: "Holiday season worst months"
+              text: "Nov&ndash;Dec hit 74% discount rate. Gift bundle depth averaged 28.4% vs 19.2% in Q1&ndash;Q2."
+              style: "margin-top:16px;margin-bottom:10px;"
+          - callout:
+              color: navy
+              title: "Most common discount tiers"
+              text: "15% (loyalty member default) and 20&ndash;25% (subscription pricing) account for 78% of all discounts."
+
+  # SLIDE 3: SUBSCRIPTION = PERMANENT DISCOUNT
+  - label: "Subscription Pricing"
+    title: "82 SKUs are effectively always discounted &mdash; subscription is the real price"
+    subtitle: "These products are discounted on 85%+ of transactions. The &ldquo;retail price&rdquo; is a reference anchor &mdash; the subscription price IS the price. This is intentional: higher list + permanent member discount = perceived deal."
+    layout: cols
+    columns:
+      - card: "Examples &mdash; Always-Discounted SKUs"
+        table:
+          headers: ["Product", "Retail", "Sub Price", "Discount", "% on Sub"]
+          rows:
+            - ["Northside House Blend", "$22", "$16.50", "25.0%", "94.2%"]
+            - ["Ethiopian Yirgacheffe", "$28", "$21.00", "25.0%", "91.8%"]
+            - ["Colombia Huila Reserve", "$34", "$25.50", "25.0%", "88.4%"]
+            - ["Gesha Village Micro-lot", "$68", "$44.20", "35.0%", "82.1%"]
+        stat_boxes:
+          - value: "82"
+            label: "always-discounted SKUs"
+          - value: "$4.2M"
+            label: "revenue (61% of retail)"
+
+      - content:
+          - callout:
+              color: navy
+              title: "The strategy is valid"
+              text: "Subscription pricing works &mdash; members buy 3.4x more frequently than walk-ins. 32 SKUs are discounted on literally 100% of transactions. The retail price exists only as an anchor."
+          - callout:
+              color: gold
+              title: "Question: Is 25% default depth optimal?"
+              text: "The average subscription discount is 25%. Consumer psychology research suggests 15&ndash;20% creates the same &ldquo;deal&rdquo; perception. Could the program work at a shallower depth?"
+          - callout:
+              color: green
+              title: "Option: Reset retail prices"
+              text: "Alternatively, lower retail prices to narrow the gap, and position subscription as convenience + priority access to limited roasts rather than a pure discount play."
+
+  # SLIDE 4: INTERNAL CAFE CONSUMPTION
+  - variant: alert
+    label: "Critical Discovery"
+    title: "$3.1M/yr in cafe consumption distorts every category margin"
+    subtitle: "Internal cafe use of beans, syrups, and pastries is recorded as zero-revenue &ldquo;sales&rdquo; with real cost. This is standard POS workflow &mdash; baristas scan items out at zero. The fix is reporting, not operational change."
+    layout: cols
+    layout_style: "grid-template-columns: 3fr 2fr;"
+    columns:
+      - card: "Internal Consumption by Category (All Locations, 2025)"
+        table:
+          headers: ["Category", "Units", "Cost Impact", "Description"]
+          rows:
+            - row: ["**BEANS**", "18,400 bags", {text: "$1,840K", bold: true}, "Espresso, drip, pour-over"]
+              highlight: red
+            - row: ["**PASTRIES**", "94,200 units", {text: "$612K", bold: true}, "In-house baked + wholesale"]
+              highlight: red
+            - ["SYRUPS", "6,800 bottles", "$204K", "Flavored drinks"]
+            - ["MILK/ALT", "28,400 units", "$198K", "Oat, almond, whole"]
+            - ["TEA", "12,600 tins", "$151K", "Loose leaf for cafe service"]
+            - ["CUPS/LIDS", "186,000 units", "$93K", "Branded takeaway"]
+            - row: ["**TOTAL**", "", {text: "**$3,098K**", bold: true}, ""]
+              style: "border-top:2px solid var(--border);"
+
+      - content:
+          - callout:
+              color: navy
+              title: "Standard POS workflow"
+              text: "Baristas scan items out at $0 to transfer inventory from retail to cafe operations. This is how every multi-channel coffee business works. The process is correct &mdash; the reporting isn&rsquo;t."
+          - callout:
+              color: green
+              title: "Fix: reporting filter"
+              text: "Create a filter that separates internal consumption from retail sales. No operational change needed. Unlocks accurate category margins for all decisions."
+          - callout:
+              color: gold
+              title: "Verify cafe drink economics"
+              text: "18,400 bags transferred at cost. Worth confirming that per-drink revenue covers the bean cost, labor, and supplies with a healthy margin target of 75%+."
+
+  # SLIDE 5: REAL VS REPORTED MARGINS
+  - label: "Margin Correction"
+    title: "Reported margins are fiction &mdash; the real numbers are healthy"
+    subtitle: "Once internal cafe consumption is filtered out, categories that looked broken are actually performing well. The data has been lying about your margins."
+    layout: cols
+    columns:
+      - card: "Before vs After Cleaning"
+        table:
+          headers: ["Category", "Reported GP%", "", "Actual GP%", "GP Masked"]
+          rows:
+            - ["**PASTRIES**", {text: "18.4%", color: amber}, {text: "&rarr;", style: "text-align:center;font-size:16px;"}, {text: "62.1%", color: green, bold: true}, "$612K"]
+            - ["**TEA**", {text: "24.6%", color: amber}, {text: "&rarr;", style: "text-align:center;font-size:16px;"}, {text: "58.8%", color: green, bold: true}, "$151K"]
+            - row: ["**SYRUPS**", {text: "-12.4%", color: red, bold: true}, {text: "&rarr;", style: "text-align:center;font-size:16px;"}, {text: "54.2%", color: green, bold: true}, "$204K"]
+              highlight: red
+            - row: ["**BEANS**", {text: "8.2%", color: red, bold: true}, {text: "&rarr;", style: "text-align:center;font-size:16px;"}, {text: "51.6%", color: amber, bold: true}, "$1,840K"]
+              highlight: red
+        donut_chart:
+          segments:
+            - value: 59
+              color: red
+              label: "Beans"
+              display: "$1.84M"
+            - value: 20
+              color: amber
+              label: "Pastries"
+              display: "$612K"
+            - value: 7
+              color: gold
+              label: "Syrups"
+              display: "$204K"
+            - value: 14
+              color: primary
+              label: "Other"
+              display: "$442K"
+
+      - content:
+          - callout:
+              color: green
+              title: "PASTRIES &amp; TEA are strong performers"
+              text: "Both above 58% GP when cleaned. These are healthy specialty retail margins. The reported numbers were wrong, not the business."
+          - callout:
+              color: amber
+              title: "BEANS at 51.6% &mdash; below target even clean"
+              text: "The core category is below the 55% GP target. This is partly structural: commodity green coffee pricing meets premium positioning. Subscription discounting is the main lever."
+          - callout:
+              color: navy
+              title: "This is the largest data quality issue in the business"
+              text: "$3.1M/yr of phantom &ldquo;sales&rdquo; distorts every category-level decision: pricing, purchasing, shelf space allocation, and store P&amp;Ls. Fixing the reporting unlocks everything else."
+
+  # SLIDE 6: PREMIUM COFFEE DISCOUNTING
+  - label: "Premium Coffee"
+    title: "Micro-lots: 38% discount depth driven by subscription bundling"
+    subtitle: "Bags above $60 have the deepest discounts. These are driven by subscription members who bundle premium roasts &mdash; not staff giving away margin. Equipment provides a benchmark for what &ldquo;controlled&rdquo; looks like."
+    layout: cols
+    columns:
+      - card: "Beans vs Equipment &mdash; Discount Comparison"
+        table:
+          headers: ["Metric", "Beans", "Equipment", "Gap"]
+          rows:
+            - ["Revenue", "$6.84M", "$1.92M", "&mdash;"]
+            - ["% units discounted", {text: "68.2%", color: red, bold: true}, {text: "28.4%", color: green, bold: true}, {text: "+39.8 pp", color: red}]
+            - ["Avg discount depth", {text: "24.1%", color: red, bold: true}, {text: "12.2%", color: green, bold: true}, {text: "+11.9 pp", color: red}]
+            - ["$ given away", {text: "$1.84M", bold: true}, "$98K", "&mdash;"]
+            - ["Discount as % of gross", {text: "17.8%", color: red, bold: true}, {text: "6.1%", color: green, bold: true}, {text: "+11.7 pp", color: red}]
+
+      - content:
+          - callout:
+              color: red
+              title: "Micro-lots ($60+): 38.4% average depth"
+              text: "This is the deepest tier. Subscription members expect heavy discounts on rare roasts. The current bundling rules auto-apply 35% on any micro-lot in a 3+ bag subscription."
+          - callout:
+              color: navy
+              title: "Option: Separate micro-lot pricing"
+              text: "Remove micro-lots from the standard subscription discount tier. Instead, offer early access as the perk &mdash; members get first pick before public release. Limits discount depth while preserving exclusivity."
+          - callout:
+              color: green
+              title: "Equipment as the benchmark"
+              text: "Equipment at 12.2% depth and 28% discount rate is well-controlled. If beans moved toward equipment discipline on premium SKUs, the margin recovery is significant."
+
+  # SLIDE 7: DISCOUNT SCENARIOS
+  - variant: warm
+    label: "Scenarios"
+    title: "Bean discount scenarios &mdash; +$180K to +$680K/yr"
+    subtitle: "Four scenarios for margin recovery, depending on how aggressively subscription and loyalty discount tiers are adjusted. All scenarios keep internal cafe consumption unchanged."
+    layout: cols
+    columns:
+      - card: "Bean Margin Scenarios (2025, All Stores)"
+        table:
+          headers: ["Scenario", "Revenue", "Margin", "Margin %", "vs Actual"]
+          rows:
+            - row: ["**Actual 2025**", "$6.84M", "$3.53M", "51.6%", "&mdash;"]
+              highlight: primary
+            - row: ["**Cap sub at 20%**", "$7.02M", "$3.71M", "52.8%", {text: "+$180K", color: green, bold: true}]
+              highlight: green
+            - row: ["**Cap at 15%**", "$7.36M", "$4.05M", "55.0%", {text: "+$520K", color: green, bold: true}]
+              highlight: green
+            - ["Micro-lot exclusion", "$7.52M", "$4.21M", "56.0%", {text: "+$680K", color: green, bold: true}]
+        line_chart:
+          lines:
+            - label: "Actual"
+              color: amber
+              points: [48.2, 49.1, 50.4, 51.6]
+            - label: "Cap at 15%"
+              color: green
+              points: [48.2, 50.8, 53.1, 55.0]
+          x_labels: ["Q1", "Q2", "Q3", "Q4"]
+
+      - content:
+          - callout:
+              color: green
+              title: "Conservative: cap sub at 20% &rarr; +$180K/yr"
+              text: "Minimal disruption. Subscription discount ceiling lowered from 25% to 20%. Loyalty member pricing unchanged. Most common tiers (15%, 20%) unaffected."
+          - callout:
+              color: gold
+              title: "Aggressive: cap at 15% &rarr; +$520K/yr"
+              text: "Significant margin recovery. Moves bean discounting toward equipment-level discipline. Would require restructuring the subscription value prop around access and convenience rather than price."
+          - callout:
+              color: navy
+              title: "Micro-lot exclusion &rarr; +$680K/yr"
+              text: "Remove $60+ roasts from all automatic discount tiers. Position as &ldquo;reserve collection&rdquo; with member-first access as the perk. Preserves full margin on highest-value product."
+
+  # SLIDE 8: CATEGORY GROWTH + MARGIN MATRIX
+  - label: "Growth &times; Margin"
+    title: "Category matrix &mdash; where to invest, watch, and investigate"
+    subtitle: "Clean margins, 2025 vs 2024 (all locations). Overall mix improved: **52.1% &rarr; 58.2% (+6.1 pp)**."
+    quadrant_grid:
+      - title: "Stars &mdash; Growing &amp; High Margin"
+        bg: "#f0fdf4"
+        border: "#bbf7d0"
+        title_color: "var(--green-dark)"
+        items:
+          - "**COLD BREW** &mdash; +34.2%{.green} growth, **72.4%** GP"
+          - "**MERCHANDISE** &mdash; +28.1%{.green} growth, **64.8%** GP"
+      - title: "Growers &mdash; Growing &amp; Solid Margin"
+        bg: "#eff6ff"
+        border: "#bfdbfe"
+        title_color: "var(--blue)"
+        items:
+          - "**EQUIPMENT** &mdash; +12.4%{.green}, 58.2% GP"
+          - "**TEA** &mdash; +9.8%{.green}, 58.8% GP"
+          - "**PASTRIES** &mdash; +8.1%{.green}, 62.1% GP"
+      - title: "Core Steady"
+        bg: "#faf9f7"
+        border: "var(--border)"
+        title_color: "var(--primary-mid)"
+        items:
+          - "**SINGLE ORIGIN** &mdash; +4.2%, 54.8% GP &mdash; largest category ($3.8M)"
+          - "**BLENDS** &mdash; +3.1%, 48.2% GP"
+          - "**SYRUPS** &mdash; +1.2%, 54.2% GP"
+      - title: "Margin Problems &amp; Declining"
+        bg: "#fef2f2"
+        border: "#fecaca"
+        title_color: "var(--red)"
+        items:
+          - "**DECAF** &mdash; +2.1%, 42.8% GP{.red} &mdash; below target even clean"
+          - "**SUBSCR. BOXES** &mdash; -3.4%{.red}, 38.4% GP{.red} &mdash; heavy bundling"
+          - text: "**CUPS/SUPPLIES** &mdash; -18.2%{.red}, 22.1% GP &mdash; commodity pricing"
+            style: "margin-top:6px;border-top:1px solid #fecaca;padding-top:6px;"
+          - "**GIFT CARDS** &mdash; -12.4%{.red}, breakage only"
+
+  # SLIDE 9: SUPPLIER COST INFLATION
+  - label: "Supplier Costs"
+    title: "Green coffee costs up 22&ndash;41% &mdash; squeezing margins from below"
+    subtitle: "Even where retail margins look healthy, supplier cost increases over two years are eroding GP. One SKU is already a loss-maker at subscription price."
+    layout: cols
+    columns:
+      - card: "Highlands Direct (Single Origin)"
+        table:
+          headers: ["Year", "Cost/bag", "Revenue/bag", "GP%"]
+          rows:
+            - ["2023", "$8.40", "$24.00", "65.0%"]
+            - ["2024", "$9.85", "$22.80", "56.8%"]
+            - row: ["**2025**", {text: "$11.80", color: red, bold: true}, "$22.40", "47.3%"]
+              highlight: amber
+        content:
+          - callout:
+              color: red
+              title: "Cost/bag +41% in 2 years"
+              text: "From $8.40 to $11.80. Revenue/bag fell 7% (subscription mix shift). Dual squeeze on margin."
+              style: "margin-top:12px;"
+
+      - content:
+          - callout:
+              color: red
+              title: "Cerrado Farms (Brazil)"
+              text: "Cost up +28% ($6.20 &rarr; $7.95/bag). Blend base accounts for 40% of total volume. Even small increases here have outsized P&amp;L impact."
+          - callout:
+              color: amber
+              title: "Kenyan cooperative lots"
+              text: "Cost up +22% ($12.40 &rarr; $15.10/bag). Premium positioning absorbs some increase, but margins are thinning on the subscription tier."
+          - callout:
+              color: red
+              title: "Guatemala Antigua &mdash; Selling Below Cost on Sub"
+              text: "Retail: $34. Subscription: $25.50. Cost: $26.20. Every subscription bag loses $0.70. Volume tripled this year (2,400 &rarr; 6,800 bags). Annual GP destruction: ~$4,760."
+              style: "border-color:var(--red);background:var(--red-light);"
+
+  # SLIDE 10: SHELF EFFICIENCY
+  - label: "Shelf Efficiency"
+    title: "High margin does not equal high shelf efficiency"
+    subtitle: "GP per SKU reveals which categories earn the most per shelf slot. COLD BREW generates 8x more GP per SKU than SINGLE ORIGIN, despite single origin having higher total revenue."
+    layout: cols
+    layout_style: "grid-template-columns: 3fr 2fr;"
+    columns:
+      - card: "Gross Profit per SKU (Clean, All Locations 2025)"
+        table:
+          headers: ["Rank", "Category", "GP/SKU", "GP%", "SKUs"]
+          rows:
+            - row: ["1", "**COLD BREW**", {text: "$48,200", color: green, bold: true}, "72.4%", "8"]
+              highlight: green
+            - ["2", "**EQUIPMENT**", {text: "$18,600", bold: true}, "58.2%", "62"]
+            - ["3", "**PASTRIES**", {text: "$14,800", bold: true}, "62.1%", "34"]
+            - ["4", "**MERCHANDISE**", {text: "$12,400", bold: true}, "64.8%", "48"]
+            - ["5", "**BLENDS**", {text: "$11,200", bold: true}, "48.2%", "18"]
+            - ["8", "SINGLE ORIGIN", "$5,680", "54.8%", "124"]
+            - row: ["14", "TEA", {text: "$3,920", color: amber}, "58.8%", {text: "186", color: amber, bold: true}]
+              highlight: amber
+
+      - content:
+          - callout:
+              color: green
+              title: "COLD BREW: best by far"
+              text: "$48,200 GP per SKU with only 8 SKUs. Ready-to-drink cold brew is the most efficient use of shelf/cooler space. Each slot earns 8x more than single origin bags."
+          - callout:
+              color: navy
+              title: "BLENDS are the #5 most shelf-efficient"
+              text: "Only 18 SKUs generating $11,200 GP each. A compact, high-performing assortment. House Blend alone accounts for 38% of category GP."
+          - callout:
+              color: amber
+              title: "TEA: high margin, lowest GP/SKU"
+              text: "58.8% GP but 186 SKUs generating only $3,920 each. The long tail of specialty teas dilutes shelf efficiency. Rationalizing the assortment could improve GP/SKU significantly."
+          - callout:
+              color: gold
+              title: "Insight"
+              text: "Margin % tells you profitability per dollar sold. GP/SKU tells you profitability per shelf slot. Both matter for merchandising decisions."
+
+  # SLIDE 11: KEY TAKEAWAYS
+  - label: "Key Takeaways"
+    title: "What the margin data tells us"
+    subtitle: "Six findings from the analysis &mdash; each backed by transaction-level data from 2024&ndash;2025."
+    bullets:
+      - text: "Bean discounts are structural, not promotional"
+        sub: "68% of bean units sold at a discount &mdash; 82 SKUs are discounted on 85%+ of transactions"
+      - text: "Internal cafe consumption distorts every margin metric"
+        sub: "$3.1M in at-cost transfers makes category P&amp;Ls unreliable until separated"
+      - text: "Clean gross profit is 58.2% &mdash; much higher than reported"
+        sub: "Removing internal consumption lifts the headline margin by 6.1 percentage points"
+      - text: "Micro-lot coffees have the deepest discount depth at 38%"
+        sub: "Subscription bundling auto-applies heavy discounts &mdash; not a staff discipline issue"
+      - text: "Subscription pricing works, but the default depth may be too generous"
+        sub: "25% default vs. the 15&ndash;20% that consumer research suggests is sufficient"
+      - text: "Green coffee cost inflation is concentrated in key origins"
+        sub: "Highlands Direct (+41%), Cerrado (+28%) &mdash; targeted renegotiation has outsized impact"
+
+  # SLIDE 12: CLOSING
+  - variant: dark
+    label: "Combined Impact"
+    title: "Three levers, +$320K&ndash;$980K/yr"
+    summary_grid:
+      items:
+        - value: "+$180K&ndash;680K"
+          label: "Bean discount optimization"
+          color: green
+        - value: "+$140K&ndash;300K"
+          label: "Supplier negotiation &amp; mix"
+          color: gold
+        - value: "Enabler"
+          label: "Reporting fix (separate internal consumption)"
+          color: primary-mid
+      total:
+        label: "Annual incremental margin &mdash; from pricing &amp; mix alone"
+        value: "+$320K&ndash;980K"
+    html: |
+      <div style="margin-top:36px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;">
+          <div style="padding:16px 20px;border-radius:8px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);">
+              <div style="font-weight:600;margin-bottom:4px;">Step 1: Reporting</div>
+              <div style="font-size:13px;opacity:0.6;">Separate internal cafe consumption from retail sales. This costs nothing and enables every decision below. Creates accurate category margins for the first time.</div>
+          </div>
+          <div style="padding:16px 20px;border-radius:8px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);">
+              <div style="font-weight:600;margin-bottom:4px;">Step 2: Subscription Tiers</div>
+              <div style="font-size:13px;opacity:0.6;">Reduce default subscription discount from 25% to 20%. Exclude micro-lots from automatic discounting. Reposition subscription value around access and convenience.</div>
+          </div>
+          <div style="padding:16px 20px;border-radius:8px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);">
+              <div style="font-weight:600;margin-bottom:4px;">Step 3: Supplier &amp; Mix</div>
+              <div style="font-size:13px;opacity:0.6;">Renegotiate Highlands Direct (+41%) and Cerrado (+28%). Fix Guatemala Antigua pricing. Rationalize tea long tail. Invest in cold brew and merchandise growth.</div>
+          </div>
+      </div>
+
+      <div style="margin-top:28px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.08);font-size:13px;opacity:0.5;text-align:center;">
+          Analysis based on POS transaction data &middot; Supplier invoices &middot; 2024&ndash;2025 YoY comparison &middot; Northside Coffee Co. &middot; March 2026
+      </div>

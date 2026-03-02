@@ -1,0 +1,376 @@
+meta:
+  title: "Nexus AI — Q4 2025 Board Review"
+  theme: aurora
+  footer: "Nexus AI &middot; Q4 2025 Board Review"
+  lang: en
+
+slides:
+  # SLIDE 1: HERO
+  - variant: hero
+    label: "Q4 2025 Board Review"
+    title: "Nexus AI &mdash; Q4 2025"
+    title_style: "font-size:52px;"
+    subtitle: "ARR crossed $10M. Net retention hit 130%. Enterprise pipeline doubled. This deck covers what&rsquo;s working, what&rsquo;s not, and where we invest next."
+    subtitle_style: "font-size:17px;max-width:750px;margin-bottom:8px;"
+    kpis:
+      - value: "$10.2M"
+        label: "ARR (up from $6.8M in Q3)"
+      - value: "130%"
+        label: "net dollar retention"
+      - value: "94%"
+        label: "gross margin"
+
+  # SLIDE 2: REVENUE BREAKDOWN
+  - label: "Revenue"
+    title: "ARR grew 50% QoQ &mdash; driven by enterprise expansion"
+    subtitle: "Enterprise ACV doubled while SMB held steady. The shift toward larger contracts is accelerating faster than planned."
+    layout: cols
+    columns:
+      - card: "ARR by Segment (Q4 2025)"
+        table:
+          headers: ["Segment", "ARR", "Customers", "Avg ACV", "QoQ Growth"]
+          rows:
+            - row: ["**Enterprise**", "$5.8M", "29", "$200K", {text: "+68%", color: green, bold: true}]
+              highlight: green
+            - ["**Mid-Market**", "$2.9M", "87", "$33K", {text: "+41%", color: green, bold: true}]
+            - ["**SMB**", "$1.5M", "412", "$3.6K", "+12%"]
+        stat_boxes:
+          - value: "$10.2M"
+            label: "total ARR"
+          - value: "528"
+            label: "paying customers"
+          - value: "$19.3K"
+            label: "blended ACV"
+
+      - card: "Quarterly ARR Trend"
+        bar_chart:
+          bars:
+            - label: "Q1"
+              width: "32%"
+              value: "$3.2M"
+              color: "var(--primary-light)"
+              text_color: "var(--primary)"
+            - label: "Q2"
+              width: "48%"
+              value: "$4.8M"
+              color: "var(--primary-light)"
+              text_color: "var(--primary)"
+            - label: "Q3"
+              width: "68%"
+              value: "$6.8M"
+              color: "var(--primary-light)"
+              text_color: "var(--primary)"
+            - label: "Q4"
+              width: "100%"
+              value: "$10.2M"
+              color: "var(--primary)"
+              text_color: "white"
+        content:
+          - callout:
+              color: green
+              title: "3.2x YoY growth"
+              text: "Q4 2024 ARR was $3.2M. We&rsquo;ve more than tripled in 12 months while improving unit economics."
+              style: "margin-top:16px;"
+
+  # SLIDE 3: NET RETENTION & EXPANSION
+  - label: "Retention"
+    title: "130% net retention &mdash; expansion outpacing churn 6:1"
+    subtitle: "Logo churn is 2.1% quarterly, but expansion revenue from existing customers more than compensates. Enterprise NRR is 145%."
+    layout: cols
+    columns:
+      - card: "Retention Metrics by Segment"
+        table:
+          headers: ["Metric", "Enterprise", "Mid-Market", "SMB", "Blended"]
+          rows:
+            - ["Net Dollar Retention", {text: "145%", color: green, bold: true}, {text: "125%", color: green, bold: true}, "108%", {text: "130%", bold: true}]
+            - ["Gross Dollar Retention", "97%", "93%", "88%", "94%"]
+            - ["Logo Churn (quarterly)", {text: "0.3%", color: green}, "1.8%", {text: "4.2%", color: amber}, "2.1%"]
+            - ["Avg Expansion / Account", "$38K", "$8K", "$400", "$4.2K"]
+
+      - content:
+          - callout:
+              color: green
+              title: "Enterprise NRR at 145%"
+              text: "Average enterprise customer expanded from $119K to $200K ACV. Primary driver: additional seat licenses and API usage tiers."
+          - callout:
+              color: amber
+              title: "SMB churn needs attention"
+              text: "4.2% quarterly logo churn = ~16% annualized. Root cause: SMB customers outgrow our starter plan but don&rsquo;t upgrade &mdash; they switch to competitors with better mid-tier pricing."
+          - callout:
+              color: navy
+              title: "Expansion playbook"
+              text: "Top expansion trigger: customer hits API rate limit (83% of expansions). Second: adding new team members (12%). Proactive outreach at 70% usage threshold drives 3x conversion."
+
+  # SLIDE 4: UNIT ECONOMICS
+  - label: "Unit Economics"
+    title: "Payback period dropped to 11 months &mdash; LTV:CAC at 5.2x"
+    subtitle: "Improving unit economics across every segment. Enterprise CAC payback is under 8 months. The bottleneck has shifted from efficiency to pipeline volume."
+    layout: cols
+    columns:
+      - card: "SaaS Metrics Dashboard"
+        table:
+          headers: ["Metric", "Q3 2025", "Q4 2025", "Change"]
+          rows:
+            - ["CAC (blended)", "$18.2K", "$16.4K", {text: "-9.9%", color: green, bold: true}]
+            - ["LTV (blended)", "$78K", "$85K", {text: "+9.0%", color: green, bold: true}]
+            - ["LTV:CAC", "4.3x", {text: "5.2x", color: green, bold: true}, {text: "+0.9x", color: green}]
+            - ["Payback (months)", "14", {text: "11", color: green, bold: true}, {text: "-3 mo", color: green}]
+            - ["Gross Margin", "92%", {text: "94%", color: green, bold: true}, "+2 pp"]
+
+      - content:
+          - callout:
+              color: green
+              title: "CAC down 9.9% while volume is up"
+              text: "Content marketing now drives 42% of inbound pipeline (vs 28% in Q3). The blog series on AI workflow automation generated 1,200+ MQLs."
+          - callout:
+              color: navy
+              title: "Gross margin at 94%"
+              text: "Infrastructure costs dropped after the migration to dedicated GPU clusters. Per-query cost fell from $0.0034 to $0.0019. Margin expansion flows directly to contribution profit."
+          - callout:
+              color: gold
+              title: "Enterprise payback: 7.8 months"
+              text: "Enterprise deals close at $200K ACV with $22K fully-loaded CAC. The 7.8-month payback makes aggressive sales hiring ROI-positive within a year."
+
+  # SLIDE 5: PRODUCT USAGE
+  - label: "Product"
+    title: "Daily active usage up 85% &mdash; AI Workflows is the breakout feature"
+    subtitle: "The Q3 launch of AI Workflows drove a step-change in engagement. Power users create 3x more workflows than projected. API adoption among enterprise accounts hit 78%."
+    layout: cols
+    layout_style: "grid-template-columns: 3fr 2fr;"
+    columns:
+      - card: "Feature Adoption (Q4 2025)"
+        table:
+          headers: ["Feature", "MAU", "Adoption %", "QoQ Change", "NPS"]
+          rows:
+            - row: ["**AI Workflows**", "4,280", "81%", {text: "+340%", color: green, bold: true}, "72"]
+              highlight: green
+            - ["**Document Analysis**", "3,950", "75%", "+22%", "68"]
+            - ["**API / Integrations**", "2,640", "50%", {text: "+65%", color: green, bold: true}, "71"]
+            - ["**Team Collaboration**", "2,100", "40%", "+18%", "64"]
+            - ["**Custom Models**", "890", "17%", {text: "+120%", color: green, bold: true}, "76"]
+        stat_boxes:
+          - value: "5,280"
+            label: "monthly active users"
+          - value: "85%"
+            label: "DAU/MAU ratio"
+          - value: "72"
+            label: "product NPS"
+
+      - content:
+          - callout:
+              color: green
+              title: "AI Workflows: product-market fit"
+              text: "81% adoption in one quarter. Users create avg 12 workflows each. The top 10% create 40+. This is the feature that enterprise buyers are closing on."
+          - callout:
+              color: navy
+              title: "Custom Models: early but high-signal"
+              text: "Only 17% adoption, but NPS of 76 is the highest of any feature. These are power users who become vocal advocates. Worth investing in onboarding."
+          - callout:
+              color: gold
+              title: "Collaboration is the weak spot"
+              text: "40% adoption and NPS of 64 is the lowest score. User research shows: sharing permissions are confusing and the activity feed is noisy. This is the top product priority for Q1."
+
+  # SLIDE 6: TEAM & HIRING
+  - variant: warm
+    label: "Team"
+    title: "Team grew to 62 &mdash; engineering velocity accelerated"
+    subtitle: "Headcount grew 35% QoQ. Engineering shipped 3 major releases. Time-to-hire improved across all roles."
+    layout: cols
+    columns:
+      - card: "Headcount by Department"
+        table:
+          headers: ["Department", "Q3", "Q4", "Open Roles"]
+          rows:
+            - ["**Engineering**", "22", "28", "6"]
+            - ["**Product & Design**", "6", "8", "2"]
+            - ["**Sales & CS**", "10", "14", "4"]
+            - ["**Marketing**", "4", "6", "2"]
+            - ["**G&A**", "4", "6", "1"]
+            - row: ["**Total**", "**46**", "**62**", "**15**"]
+              style: "border-top:2px solid var(--border);"
+        content:
+          - callout:
+              color: green
+              title: "Engineering: 6 hires in Q4"
+              text: "Added 2 ML engineers, 2 backend, 1 infra, 1 frontend. Avg time-to-hire: 28 days (down from 42). Offer acceptance rate: 88%."
+              style: "margin-top:16px;"
+
+      - content:
+          - callout:
+              color: navy
+              title: "Q1 2026 hiring plan"
+              text: "15 open roles across all departments. Priority: 4 senior engineers for the AI Workflows team, 2 enterprise AEs, and a VP of Marketing."
+          - callout:
+              color: gold
+              title: "Burn & runway"
+              text: "Monthly burn: $680K. Cash on hand: $14.2M. Runway: 20.9 months at current burn. Revenue growth is reducing net burn by ~$200K/mo each quarter."
+          - callout:
+              color: green
+              title: "Culture metrics"
+              text: "eNPS: 72 (up from 65). Voluntary attrition: 4% annualized. Glassdoor: 4.6/5. These numbers are critical to maintain as we scale past 75 people."
+
+  # SLIDE 7: COMPETITIVE LANDSCAPE
+  - label: "Competition"
+    title: "Competitive win rate improved to 62% &mdash; up from 48% in Q2"
+    subtitle: "We now win the majority of competitive deals. The biggest shift: enterprise buyers see our AI Workflows as a category-defining feature that competitors haven&rsquo;t replicated."
+    quadrant_grid:
+      - title: "Winning &mdash; Clear Advantages"
+        bg: "#f3f0ff"
+        border: "#c4b5fd"
+        title_color: "var(--primary)"
+        items:
+          - "**AI Workflows** &mdash; no competitor has equivalent. 9&ndash;12 month head start"
+          - "**API flexibility** &mdash; developers choose us 3:1 over Competitor B"
+          - "**Time to value** &mdash; avg 4 days to production vs. 3&ndash;6 weeks for Competitor A"
+      - title: "Growing &mdash; Gaining Ground"
+        bg: "#ecfdf5"
+        border: "#a7f3d0"
+        title_color: "var(--green-dark)"
+        items:
+          - "**Enterprise security** &mdash; SOC 2 Type II completed, FedRAMP in progress"
+          - "**Custom models** &mdash; early feature but high stickiness (NPS 76)"
+      - title: "Parity &mdash; Table Stakes"
+        bg: "#fafafe"
+        border: "var(--border)"
+        title_color: "var(--primary-mid)"
+        items:
+          - "**Document analysis** &mdash; all players converging on similar accuracy"
+          - "**Pricing** &mdash; competitive across all tiers"
+          - "**Uptime / reliability** &mdash; 99.95% SLA, industry standard"
+      - title: "Gaps &mdash; Must Improve"
+        bg: "#fff1f2"
+        border: "#fecaca"
+        title_color: "var(--red)"
+        items:
+          - "**Team collaboration** &mdash; Competitor A&rsquo;s real-time editing is ahead of us"
+          - "**Mobile experience** &mdash; no native app yet (competitors have basic ones)"
+          - "**Brand awareness** &mdash; still unknown outside tech-forward buyers"
+
+  # SLIDE 8: FINANCIAL SUMMARY
+  - label: "Financials"
+    title: "Cash-efficient growth: $1.42 net new ARR per $1 spent"
+    subtitle: "The business is approaching the Rule of 40. ARR growth rate of 200%+ combined with -52% FCF margin gives a combined score of ~148."
+    layout: cols
+    columns:
+      - card: "P&L Summary (Q4 2025)"
+        table:
+          headers: ["Line Item", "Q4 2025", "% of Revenue", "vs Q3"]
+          rows:
+            - ["**Revenue**", "$2.55M", "100%", {text: "+50%", color: green, bold: true}]
+            - ["COGS", "($153K)", "6%", "-2 pp"]
+            - row: ["**Gross Profit**", "$2.40M", {text: "94%", color: green, bold: true}, "+2 pp"]
+              highlight: green
+            - ["S&M", "($980K)", "38%", "-4 pp"]
+            - ["R&D", "($1.12M)", "44%", "+2 pp"]
+            - ["G&A", "($340K)", "13%", "-1 pp"]
+            - row: ["**Net Burn**", "($40K)", {text: "-2%", color: green, bold: true}, {text: "+8 pp", color: green}]
+              style: "border-top:2px solid var(--border);"
+
+      - content:
+          - callout:
+              color: green
+              title: "Near break-even"
+              text: "Net burn of $40K in Q4 &mdash; essentially break-even. At current trajectory, Q1 2026 will be the first cash-flow positive quarter."
+          - callout:
+              color: navy
+              title: "S&M efficiency improving"
+              text: "S&M as % of revenue dropped from 42% to 38%. Magic number: 1.42 (>1.0 is excellent). We&rsquo;re generating $1.42 in net new ARR for every $1 of S&M spend."
+          - callout:
+              color: gold
+              title: "R&D investment increasing"
+              text: "R&D up to 44% of revenue, driven by the 6 new engineering hires. This is intentional &mdash; AI Workflows and Custom Models need sustained investment through H1 2026."
+
+  # SLIDE 9: KEY RISKS
+  - variant: alert
+    label: "Risks"
+    title: "Three risks that could slow the trajectory"
+    subtitle: "We&rsquo;re in a strong position, but these three areas need active management to sustain the growth rate into 2026."
+    layout: cols-3
+    columns:
+      - content:
+          - callout:
+              color: red
+              title: "1. SMB churn acceleration"
+              text: "16% annualized logo churn in SMB. If this spreads to mid-market, NRR drops below 120%. **Mitigation:** Launch a $49/mo &ldquo;Growth&rdquo; tier in Q1 to bridge the gap between Starter ($19) and Pro ($149)."
+          - callout:
+              color: navy
+              title: "Current impact"
+              text: "~$240K ARR lost to churn in Q4. Manageable now, but the trend line matters more than the absolute number."
+      - content:
+          - callout:
+              color: amber
+              title: "2. Key-person dependency"
+              text: "3 engineers own 60% of the AI Workflows codebase. If any leave, feature velocity drops significantly. **Mitigation:** Dedicated knowledge-sharing sprints in Q1. Hiring 2 senior engineers specifically for this team."
+          - callout:
+              color: navy
+              title: "Current impact"
+              text: "No attrition signals yet (all 3 have strong eNPS scores), but this is a structural risk that grows with the product&rsquo;s importance."
+      - content:
+          - callout:
+              color: amber
+              title: "3. GPU cost volatility"
+              text: "We spend $89K/mo on compute. A 30% price increase would add ~$320K/yr to COGS and drop gross margin to 91%. **Mitigation:** Multi-cloud strategy in progress. Reserved capacity negotiation with 2 providers."
+          - callout:
+              color: navy
+              title: "Current impact"
+              text: "Gross margin improved to 94% this quarter, but this assumes stable compute pricing. We have 6-month price locks expiring in March."
+
+  # SLIDE 10: Q1 2026 PRIORITIES
+  - label: "Priorities"
+    title: "Q1 2026 &mdash; three bets, one foundation"
+    subtitle: "Clear priorities for the next 90 days. Everything else is maintenance mode."
+    actions:
+      - num: 1
+        text: "**Ship the Growth tier** ($49/mo) to reduce SMB churn"
+        impact: "Target: cut SMB churn from 4.2% to 2.5% quarterly"
+      - num: 2
+        text: "**Double enterprise pipeline** with dedicated outbound team"
+        impact: "Target: $8M qualified pipeline by end of Q1"
+      - num: 3
+        text: "**Rebuild collaboration features** from user research insights"
+        impact: "Target: NPS from 64 to 72, adoption from 40% to 55%"
+    bullets:
+      - text: "Foundation: knowledge transfer on AI Workflows codebase"
+        sub: "2 senior engineers onboarded, documentation sprint, pair programming rotation"
+      - text: "Infrastructure: multi-cloud GPU strategy"
+        sub: "Negotiate reserved capacity with AWS and GCP. Target: 20% cost reduction by Q2"
+      - text: "Hiring: 15 roles to fill across all departments"
+        sub: "Priority: 4 senior engineers, 2 enterprise AEs, VP Marketing"
+
+  # SLIDE 11: CLOSING
+  - variant: dark
+    label: "Summary"
+    title: "The flywheel is working"
+    summary_grid:
+      items:
+        - value: "$10.2M"
+          label: "ARR — 3.2x YoY"
+          color: green
+        - value: "130%"
+          label: "net dollar retention"
+          color: gold
+        - value: "5.2x"
+          label: "LTV:CAC ratio"
+          color: primary-mid
+      total:
+        label: "Near break-even with 200%+ growth &mdash; raising Series B in Q2 2026"
+        value: "$40K net burn"
+    html: |
+      <div style="margin-top:36px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;">
+          <div style="padding:16px 20px;border-radius:8px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);">
+              <div style="font-weight:600;margin-bottom:4px;">Product</div>
+              <div style="font-size:13px;opacity:0.6;">AI Workflows is the wedge. Custom Models is the moat. Collaboration is the gap to close. Every feature decision should feed the enterprise expansion motion.</div>
+          </div>
+          <div style="padding:16px 20px;border-radius:8px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);">
+              <div style="font-weight:600;margin-bottom:4px;">Go-to-Market</div>
+              <div style="font-size:13px;opacity:0.6;">Enterprise is the growth engine. SMB is the funnel. The Growth tier bridges them. Content marketing at 42% of pipeline is the most capital-efficient channel we have.</div>
+          </div>
+          <div style="padding:16px 20px;border-radius:8px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);">
+              <div style="font-weight:600;margin-bottom:4px;">Finance</div>
+              <div style="font-size:13px;opacity:0.6;">$14.2M cash, 20.9 months runway, near break-even. Series B in Q2 2026 from a position of strength. Target: $25M raise at $150M+ valuation.</div>
+          </div>
+      </div>
+
+      <div style="margin-top:28px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.08);font-size:13px;opacity:0.5;text-align:center;">
+          Nexus AI &middot; Q4 2025 Board Review &middot; Confidential
+      </div>

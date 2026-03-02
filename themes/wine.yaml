@@ -1,0 +1,41 @@
+name: Wine
+
+fonts:
+  import_url: "https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=DM+Serif+Display&display=swap"
+  body: "'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif"
+  heading: "'DM Serif Display', serif"
+
+colors:
+  primary: "#722f37"
+  primary_light: "#f9f0f1"
+  primary_mid: "#a3475a"
+  primary_dark: "#4a1e24"
+  gold: "#b8860b"
+  gold_light: "#fdf6e3"
+  green: "#1a7a4c"
+  green_light: "#e8f5ee"
+  green_dark: "#0d5c38"
+  red: "#c0392b"
+  red_light: "#fdecea"
+  amber: "#d4870e"
+  amber_light: "#fef3e2"
+  bg: "#fafaf8"
+  surface: "#ffffff"
+  text: "#1a1a1a"
+  text_secondary: "#5a5a5a"
+  border: "#e5e5e0"
+
+variants:
+  hero:
+    background: "linear-gradient(135deg, #1e0c10 0%, #3d1920 40%, #5e252c 100%)"
+    color: "white"
+  dark:
+    background: "linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%)"
+    color: "white"
+  warm:
+    background: "linear-gradient(135deg, #f9f0f1 0%, #f5e6e8 100%)"
+  alert:
+    background: "linear-gradient(135deg, #fdecea 0%, #f9d6d2 100%)"
+
+decorations:
+  top_strip: "linear-gradient(to right, #722f37 0%, #a3475a 50%, #722f37 100%)"

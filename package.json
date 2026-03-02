@@ -1,0 +1,28 @@
+{
+  "name": "lucida",
+  "version": "0.1.0",
+  "type": "module",
+  "bin": {
+    "lucida": "./dist-cli/lucida.js"
+  },
+  "files": [
+    "dist-cli/",
+    "engine/",
+    "themes/"
+  ],
+  "scripts": {
+    "build": "tsc --project tsconfig.build.json",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "js-yaml": "^4.1.0"
+  },
+  "optionalDependencies": {
+    "playwright": "^1.52.0"
+  },
+  "devDependencies": {
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "^22.0.0",
+    "typescript": "^5.7.0"
+  }
+}

@@ -1,0 +1,42 @@
+name: Navy
+
+fonts:
+  import_url: "https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=DM+Serif+Display&display=swap"
+  body: "'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif"
+  heading: "'DM Serif Display', serif"
+
+colors:
+  primary: "#1b2a4a"
+  primary_light: "#eef1f6"
+  primary_mid: "#3d5a8a"
+  blue: "#2563eb"
+  blue_light: "#eff6ff"
+  gold: "#b8860b"
+  gold_light: "#fdf6e3"
+  green: "#16a34a"
+  green_light: "#f0fdf4"
+  green_dark: "#15803d"
+  red: "#dc2626"
+  red_light: "#fef2f2"
+  amber: "#d97706"
+  amber_light: "#fffbeb"
+  bg: "#faf9f7"
+  surface: "#ffffff"
+  text: "#1a1a1a"
+  text_secondary: "#5a5a5a"
+  border: "#e5e5e0"
+
+variants:
+  hero:
+    background: "linear-gradient(135deg, #0f1a2e 0%, #1b2a4a 40%, #2d4570 100%)"
+    color: "white"
+  dark:
+    background: "linear-gradient(135deg, #111 0%, #1a1a2e 100%)"
+    color: "white"
+  warm:
+    background: "linear-gradient(135deg, #fdf6e3 0%, #fef3cd 100%)"
+  alert:
+    background: "linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%)"
+
+decorations:
+  top_strip: "linear-gradient(to right, #1b2a4a 0%, #3d5a8a 50%, #1b2a4a 100%)"

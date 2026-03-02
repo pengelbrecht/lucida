@@ -4,7 +4,7 @@
   "description": "YAML-native slide deck builder — content + theme → standalone HTML or 16:9 PDF",
   "type": "module",
   "bin": {
-    "lucida": "./dist-cli/lucida.js"
+    "lucida": "dist-cli/lucida.js"
   },
   "files": [
     "dist-cli/",

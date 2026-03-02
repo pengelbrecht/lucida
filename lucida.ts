@@ -2,7 +2,7 @@
 // Lucida — slide deck builder. YAML content + YAML theme → standalone HTML / PDF.
 
 import { resolve, dirname, basename } from "path";
-import { readFileSync, writeFileSync, existsSync } from "fs";
+import { readFileSync, writeFileSync } from "fs";
 import { execSync } from "child_process";
 import { fileURLToPath } from "url";
 import yaml from "js-yaml";
@@ -95,6 +95,16 @@ function loadTheme(themePath: string): Theme {
 }
 
 // ---------------------------------------------------------------------------
+// Helpers
+// ---------------------------------------------------------------------------
+
+function resolveColor(raw: string | undefined, fallback = "primary"): string {
+  const c = raw ?? fallback;
+  if (c.startsWith("var(") || c.startsWith("#")) return c;
+  return `var(--${c})`;
+}
+
+// ---------------------------------------------------------------------------
 // Component renderers
 // ---------------------------------------------------------------------------
 
@@ -129,7 +139,7 @@ function renderTable(table: any): string {
       rowStyle = row.style ?? "";
     }
 
-    if (highlight) rowStyle = `background:var(--${highlight}-light);`;
+    if (highlight) rowStyle = `background:var(--${highlight}-light);${rowStyle}`;
     const styleAttr = rowStyle ? ` style="${rowStyle}"` : "";
     parts.push(`<tr${styleAttr}>`);
 
@@ -181,21 +191,13 @@ function renderStatBoxes(statBoxes: any[]): string {
 function renderBarChart(barChart: any): string {
   const parts: string[] = [];
   for (const bar of barChart.bars ?? []) {
-    let color = bar.color ?? "var(--primary)";
-    if (!color.startsWith("var(") && !color.startsWith("#")) color = `var(--${color})`;
-
+    const color = resolveColor(bar.color);
     const width = bar.width ?? "0%";
-    let vcStyle = "";
-    if (bar.value_color) {
-      vcStyle = bar.value_color.startsWith("#")
-        ? `color:${bar.value_color};`
-        : `color:var(--${bar.value_color});`;
-    }
+    const vcStyle = bar.value_color ? `color:${resolveColor(bar.value_color)};` : "";
 
     let tracks = `<div class="bar-track"><div class="bar-fill" style="width:${width};background:${color};"></div></div>`;
     if (bar.ghost) {
-      let gc = bar.ghost.color ?? "var(--amber)";
-      if (!gc.startsWith("var(") && !gc.startsWith("#")) gc = `var(--${gc})`;
+      const gc = resolveColor(bar.ghost.color, "amber");
       tracks =
         `<div class="bar-track"><div class="bar-fill" style="width:${bar.ghost.width};background:${gc};opacity:0.4;"></div></div>` +
         `<div class="bar-track" style="margin-left:-100%;"><div class="bar-fill" style="width:${width};background:${color};"></div></div>`;
@@ -221,8 +223,7 @@ function renderDonutChart(donut: any): string {
   const gradientParts: string[] = [];
   for (const seg of segments) {
     const val = Number(seg.value) || 0;
-    let color = seg.color ?? "primary";
-    if (!color.startsWith("var(") && !color.startsWith("#")) color = `var(--${color})`;
+    const color = resolveColor(seg.color);
     const start = cumulative;
     cumulative += val;
     gradientParts.push(`${color} ${start}% ${cumulative}%`);
@@ -232,8 +233,7 @@ function renderDonutChart(donut: any): string {
   const mask = `radial-gradient(circle, transparent ${hole}px, black ${hole + 1}px)`;
 
   const legendItems = segments.map((seg: any) => {
-    let color = seg.color ?? "primary";
-    if (!color.startsWith("var(") && !color.startsWith("#")) color = `var(--${color})`;
+    const color = resolveColor(seg.color);
     const displayVal = seg.display ?? `${seg.value}%`;
     return (
       `<div class="donut-legend-item">` +
@@ -288,9 +288,7 @@ function renderLineChart(chart: any): string {
 
   for (const line of lines) {
     const points: number[] = (line.points ?? []).map(Number);
-    let color = line.color ?? "primary";
-    if (!color.startsWith("var(") && !color.startsWith("#"))
-      color = `var(--${color})`;
+    const color = resolveColor(line.color);
 
     const coords = points.map((v, i) => {
       const x =
@@ -499,12 +497,7 @@ function renderColumn(col: any): string {
 
   const parts: string[] = [];
   for (const key of COMPONENT_KEYS) {
-    if (key in col) {
-      if (key === "callout") parts.push(renderCallout(col.callout));
-      else if (key === "table") parts.push(renderTable(col.table));
-      else if (key === "html") parts.push(col.html);
-      else parts.push(renderContentItem(col));
-    }
+    if (key in col) parts.push(renderComponent(key, col[key]));
   }
 
   if (parts.length) {
@@ -576,6 +569,19 @@ function renderSlide(slide: any, index: number, logoHtml: string): string {
 // Full deck assembly
 // ---------------------------------------------------------------------------
 
+let _engineCache: { baseCss: string; componentsCss: string; engineJs: string } | null = null;
+function getEngineFiles() {
+  if (!_engineCache) {
+    const engineDir = resolve(ROOT, "engine");
+    _engineCache = {
+      baseCss: readFileSync(resolve(engineDir, "base.css"), "utf-8"),
+      componentsCss: readFileSync(resolve(engineDir, "components.css"), "utf-8"),
+      engineJs: readFileSync(resolve(engineDir, "engine.js"), "utf-8"),
+    };
+  }
+  return _engineCache;
+}
+
 async function build(contentPath: string): Promise<string> {
   const content = yaml.load(readFileSync(contentPath, "utf-8")) as any;
   const meta = content.meta ?? {};
@@ -584,18 +590,16 @@ async function build(contentPath: string): Promise<string> {
   // Resolve theme
   const themeName = meta.theme ?? "navy";
   const themePath = resolve(ROOT, "themes", `${themeName}.yaml`);
-  if (!existsSync(themePath)) {
+  let theme: Theme;
+  try {
+    theme = loadTheme(themePath);
+  } catch {
     console.error(`Error: theme '${themeName}' not found at ${themePath}`);
     process.exit(1);
   }
 
-  const theme = loadTheme(themePath);
-
-  // Load engine files
-  const engineDir = resolve(ROOT, "engine");
-  const baseCss = readFileSync(resolve(engineDir, "base.css"), "utf-8");
-  const componentsCss = readFileSync(resolve(engineDir, "components.css"), "utf-8");
-  const engineJs = readFileSync(resolve(engineDir, "engine.js"), "utf-8");
+  // Load engine files (cached across builds)
+  const { baseCss, componentsCss, engineJs } = getEngineFiles();
 
   // Logo HTML
   let logoHtml = "";
@@ -616,7 +620,7 @@ async function build(contentPath: string): Promise<string> {
   const total = slides.length;
   const title = meta.title ?? "Slides";
   const footer = meta.footer ?? "";
-  const lang = meta.lang ?? "da";
+  const lang = meta.lang ?? "en";
   const stripClass = theme.topStrip ? "" : " top-strip-none";
   const customCss = meta.custom_css ?? "";
 
@@ -675,7 +679,7 @@ ${engineJs}
 // PDF export
 // ---------------------------------------------------------------------------
 
-async function exportPdf(htmlPath: string, pdfPath: string): Promise<void> {
+async function launchBrowser(): Promise<any> {
   let chromium: any;
   try {
     const pw = await import("playwright");
@@ -688,9 +692,8 @@ Install with:
     process.exit(1);
   }
 
-  let browser;
   try {
-    browser = await chromium.launch();
+    return await chromium.launch();
   } catch {
     console.error(`Playwright is installed but Chromium browser is missing.
 
@@ -698,6 +701,9 @@ Install it with:
   npx playwright install chromium`);
     process.exit(1);
   }
+}
+
+async function exportPdf(htmlPath: string, pdfPath: string, browser: any): Promise<void> {
   const page = await browser.newPage();
   await page.goto(`file://${resolve(htmlPath)}`, { waitUntil: "networkidle" });
   await page.pdf({
@@ -708,7 +714,7 @@ Install it with:
     preferCSSPageSize: true,
     margin: { top: "0", right: "0", bottom: "0", left: "0" },
   });
-  await browser.close();
+  await page.close();
 }
 
 // ---------------------------------------------------------------------------
@@ -743,30 +749,29 @@ Examples:
     process.exit(1);
   }
 
-  for (const file of files) {
-    if (!existsSync(file)) {
-      console.error(`Error: file not found: ${file}`);
-      process.exit(1);
-    }
+  if (command !== "build" && command !== "pdf") {
+    console.error(`Unknown command: ${command}. Use 'build' or 'pdf'.`);
+    process.exit(1);
+  }
 
-    if (command === "build") {
+  let browser: any = null;
+  if (command === "pdf") browser = await launchBrowser();
+
+  try {
+    for (const file of files) {
       const htmlPath = await build(file);
-      if (openAfter) {
+      if (command === "pdf") {
+        const pdfPath = htmlPath.replace(/\.html$/, ".pdf");
+        console.log(`Exporting PDF...`);
+        await exportPdf(htmlPath, pdfPath, browser);
+        console.log(`PDF:   ${pdfPath}`);
+        if (openAfter) execSync(`open "${pdfPath}"`);
+      } else if (openAfter) {
         execSync(`open "${htmlPath}"`);
       }
-    } else if (command === "pdf") {
-      const htmlPath = await build(file);
-      const pdfPath = htmlPath.replace(/\.html$/, ".pdf");
-      console.log(`Exporting PDF...`);
-      await exportPdf(htmlPath, pdfPath);
-      console.log(`PDF:   ${pdfPath}`);
-      if (openAfter) {
-        execSync(`open "${pdfPath}"`);
-      }
-    } else {
-      console.error(`Unknown command: ${command}. Use 'build' or 'pdf'.`);
-      process.exit(1);
     }
+  } finally {
+    if (browser) await browser.close();
   }
 }
 

@@ -145,7 +145,7 @@ def render_table(table):
             row_style = row.get("style", "")
 
         if highlight:
-            row_style = f"background:var(--{highlight}-light);"
+            row_style = f"background:var(--{highlight}-light);{row_style}"
 
         style_attr = f' style="{row_style}"' if row_style else ""
         parts.append(f"<tr{style_attr}>")
@@ -190,13 +190,10 @@ def render_stat_boxes(stat_boxes):
         border_color = sb.get("border_color", "")
         if border_color:
             style = f"border-color:var(--{border_color});{style}"
-        style_attr = f' style="{style}"' if style else ""
 
-        value_style = ""
+        color_style = ""
         if sb.get("color"):
-            value_style = f' style="color:var(--{sb["color"]})"'
-        elif sb.get("font_size"):
-            value_style = f' style="font-size:{sb["font_size"]}"'
+            color_style = f"color:var(--{sb['color']});"
 
         detail = ""
         if sb.get("detail"):
@@ -204,7 +201,7 @@ def render_stat_boxes(stat_boxes):
 
         items.append(
             f'<div class="stat-box" style="flex:1;{style}">'
-            f'<div class="stat-value" style="font-size:28px;{"color:var(--" + sb["color"] + ");" if sb.get("color") else ""}">{esc(sb["value"])}</div>'
+            f'<div class="stat-value" style="font-size:28px;{color_style}">{esc(sb["value"])}</div>'
             f'<div class="stat-label">{esc(sb["label"])}</div>'
             f'{detail}'
             f'</div>'
@@ -331,6 +328,31 @@ def render_actions(actions):
     return "".join(items)
 
 
+COMPONENT_KEYS = (
+    "callout", "table", "stat_boxes", "bar_chart", "kpis", "bullets",
+    "actions", "summary_grid", "html",
+)
+
+_COMPONENT_RENDERERS = {
+    "callout": render_callout,
+    "table": render_table,
+    "stat_boxes": render_stat_boxes,
+    "bar_chart": render_bar_chart,
+    "kpis": render_kpis,
+    "bullets": render_bullets,
+    "actions": render_actions,
+    "summary_grid": render_summary_grid,
+}
+
+
+def render_component(key, data):
+    """Dispatch a single component by key."""
+    if key == "html":
+        return data
+    renderer = _COMPONENT_RENDERERS.get(key)
+    return renderer(data) if renderer else ""
+
+
 def render_content_item(item):
     """Render a single content item (used inside cards and columns)."""
     if isinstance(item, str):
@@ -339,24 +361,9 @@ def render_content_item(item):
         return ""
 
     parts = []
-    if "callout" in item:
-        parts.append(render_callout(item["callout"]))
-    if "table" in item:
-        parts.append(render_table(item["table"]))
-    if "stat_boxes" in item:
-        parts.append(render_stat_boxes(item["stat_boxes"]))
-    if "bar_chart" in item:
-        parts.append(render_bar_chart(item["bar_chart"]))
-    if "kpis" in item:
-        parts.append(render_kpis(item["kpis"]))
-    if "bullets" in item:
-        parts.append(render_bullets(item["bullets"]))
-    if "actions" in item:
-        parts.append(render_actions(item["actions"]))
-    if "summary_grid" in item:
-        parts.append(render_summary_grid(item["summary_grid"]))
-    if "html" in item:
-        parts.append(item["html"])
+    for key in COMPONENT_KEYS:
+        if key in item:
+            parts.append(render_component(key, item[key]))
     return "".join(parts)
 
 
@@ -376,27 +383,9 @@ def render_card(card_data):
         inner.append(f"<h4{h4_attr}>{esc(title)}</h4>")
 
     # Render nested content items
-    for key in ("table", "stat_boxes", "bar_chart", "kpis", "bullets", "actions",
-                "summary_grid", "callout", "html"):
+    for key in COMPONENT_KEYS:
         if key in card_data:
-            if key == "table":
-                inner.append(render_table(card_data["table"]))
-            elif key == "stat_boxes":
-                inner.append(render_stat_boxes(card_data["stat_boxes"]))
-            elif key == "bar_chart":
-                inner.append(render_bar_chart(card_data["bar_chart"]))
-            elif key == "kpis":
-                inner.append(render_kpis(card_data["kpis"]))
-            elif key == "bullets":
-                inner.append(render_bullets(card_data["bullets"]))
-            elif key == "actions":
-                inner.append(render_actions(card_data["actions"]))
-            elif key == "summary_grid":
-                inner.append(render_summary_grid(card_data["summary_grid"]))
-            elif key == "callout":
-                inner.append(render_callout(card_data["callout"]))
-            elif key == "html":
-                inner.append(card_data["html"])
+            inner.append(render_component(key, card_data[key]))
 
     # Content array (list of content items)
     for item in card_data.get("content", []):
@@ -428,17 +417,9 @@ def render_column(col):
         return f'<div style="display:flex;flex-direction:column;gap:12px;{style}">{inner}</div>'
 
     # Direct component keys on the column
-    for key in ("table", "stat_boxes", "bar_chart", "kpis", "bullets", "actions",
-                "summary_grid", "callout", "html"):
+    for key in COMPONENT_KEYS:
         if key in col:
-            if key == "callout":
-                parts.append(render_callout(col["callout"]))
-            elif key == "table":
-                parts.append(render_table(col["table"]))
-            elif key == "html":
-                parts.append(col["html"])
-            else:
-                parts.append(render_content_item(col))
+            parts.append(render_component(key, col[key]))
 
     if parts:
         return f'<div{wrapper_style}>{"".join(parts)}</div>'
@@ -477,17 +458,11 @@ def render_slide(slide, index, logo_html=""):
 
     # Body components (top-level, before any layout)
     for key in ("kpis", "bullets", "summary_grid", "quadrant_grid", "actions"):
-        if key in slide and key != "columns":
-            if key == "kpis":
-                parts.append(render_kpis(slide["kpis"]))
-            elif key == "bullets":
-                parts.append(render_bullets(slide["bullets"]))
-            elif key == "summary_grid":
-                parts.append(render_summary_grid(slide["summary_grid"]))
-            elif key == "quadrant_grid":
-                parts.append(render_quadrant_grid(slide["quadrant_grid"]))
-            elif key == "actions":
-                parts.append(render_actions(slide["actions"]))
+        if key in slide:
+            if key == "quadrant_grid":
+                parts.append(render_quadrant_grid(slide[key]))
+            else:
+                parts.append(render_component(key, slide[key]))
 
     # Table at slide level (not in a card)
     if "table" in slide and "columns" not in slide and "layout" not in slide:
@@ -559,7 +534,7 @@ def build(content_path):
     total = len(slides)
     title = meta.get("title", "Slides")
     footer = meta.get("footer", "")
-    lang = meta.get("lang", "da")
+    lang = meta.get("lang", "en")
 
     # Top strip element
     strip_class = "" if top_strip else " top-strip-none"

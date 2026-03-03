@@ -770,15 +770,15 @@ async function main() {
     console.log(`lucida — slide deck builder
 
 Usage:
-  npx lucida build <content.yaml> [...]         Build HTML deck(s)
-  npx lucida build <content.yaml> --open        Build and open in browser
-  npx lucida pdf   <content.yaml> [...]         Build HTML + export PDF
-  npx lucida pdf   <content.yaml> --open        Build PDF and open it
+  npx lucida-slides build <content.yaml> [...]         Build HTML deck(s)
+  npx lucida-slides build <content.yaml> --open        Build and open in browser
+  npx lucida-slides pdf   <content.yaml> [...]         Build HTML + export PDF
+  npx lucida-slides pdf   <content.yaml> --open        Build PDF and open it
 
 Examples:
-  npx lucida build content/saas-quarterly.slides.yaml
-  npx lucida build content/*.slides.yaml --open
-  npx lucida pdf content/*.slides.yaml --open`);
+  npx lucida-slides build content/saas-quarterly.slides.yaml
+  npx lucida-slides build content/*.slides.yaml --open
+  npx lucida-slides pdf content/*.slides.yaml --open`);
     process.exit(0);
   }
 

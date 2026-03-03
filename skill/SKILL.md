@@ -1,7 +1,7 @@
 ---
 name: lucida
 description: Build professional slide decks from YAML and export to HTML or PDF. Use when users want to create presentations, slide decks, board decks, pitch decks, or quarterly reviews. Also use when users want to modify an existing Lucida deck, add slides, change themes, add logos, or export slides to PDF. Triggers on "create a deck", "make slides", "build a presentation", "quarterly review deck", "board deck", "pitch deck", "export slides to PDF", "lucida", or any task involving structured slide content.
-allowed-tools: Bash(npx lucida:*), Bash(node:*)
+allowed-tools: Bash(npx lucida-slides:*), Bash(node:*)
 ---
 
 # Lucida
@@ -11,10 +11,10 @@ YAML-native slide deck builder. Content lives in `.slides.yaml` files, themes co
 ## Quick Start
 
 ```bash
-npx lucida build deck.slides.yaml           # → deck-slides.html
-npx lucida pdf deck.slides.yaml             # → deck-slides.html + deck-slides.pdf
-npx lucida pdf deck.slides.yaml --open      # build + open PDF
-npx lucida build content/*.slides.yaml      # batch build
+npx lucida-slides build deck.slides.yaml           # → deck-slides.html
+npx lucida-slides pdf deck.slides.yaml             # → deck-slides.html + deck-slides.pdf
+npx lucida-slides pdf deck.slides.yaml --open      # build + open PDF
+npx lucida-slides build content/*.slides.yaml      # batch build
 ```
 
 Output lands in the current working directory. HTML files are fully self-contained (all CSS, JS, and font imports inlined). PDF requires Playwright — install once with `npx playwright install chromium`.
@@ -384,7 +384,7 @@ The default logo height is 20px, suitable for square icon marks. For wordmarks, 
 ## PDF Export
 
 ```bash
-npx lucida pdf deck.slides.yaml --open
+npx lucida-slides pdf deck.slides.yaml --open
 ```
 
 Produces a 16:9 PDF (1280×720px per page) with all backgrounds, colors, and gradients preserved. Requires Playwright with Chromium — install once:

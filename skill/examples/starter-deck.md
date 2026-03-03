@@ -82,6 +82,6 @@ slides:
 ## Build It
 
 ```bash
-npx lucida build my-deck.slides.yaml --open
-npx lucida pdf my-deck.slides.yaml --open
+npx lucida-slides build my-deck.slides.yaml --open
+npx lucida-slides pdf my-deck.slides.yaml --open
 ```

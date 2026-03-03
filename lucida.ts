@@ -605,18 +605,28 @@ async function build(contentPath: string): Promise<string> {
   const meta = content.meta ?? {};
   const slides: any[] = content.slides ?? [];
 
-  // Resolve theme
+  // Resolve theme — check next to content file first, then built-in
   const themeName = meta.theme ?? "navy";
-  const themePath = resolve(ROOT, "themes", `${themeName}.yaml`);
-  let theme: Theme;
-  try {
-    theme = loadTheme(themePath);
-  } catch (err: any) {
-    if (err?.code === "ENOENT") {
-      console.error(`Error: theme '${themeName}' not found at ${themePath}`);
-    } else {
+  const contentDir = dirname(resolve(contentPath));
+  const themeFile = themeName.endsWith(".yaml") ? themeName : `${themeName}.yaml`;
+  const candidates = [
+    resolve(contentDir, themeFile),                // <content-dir>/name.yaml
+    resolve(contentDir, "themes", themeFile),       // <content-dir>/themes/name.yaml
+    resolve(ROOT, "themes", themeFile),             // built-in themes
+  ];
+  let theme: Theme | null = null;
+  for (const candidate of candidates) {
+    try {
+      theme = loadTheme(candidate);
+      break;
+    } catch (err: any) {
+      if (err?.code === "ENOENT") continue;
       console.error(`Error loading theme '${themeName}': ${err?.message ?? err}`);
+      process.exit(1);
     }
+  }
+  if (!theme) {
+    console.error(`Error: theme '${themeName}' not found. Searched:\n${candidates.map(c => "  " + c).join("\n")}`);
     process.exit(1);
   }
 

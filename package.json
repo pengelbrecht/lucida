@@ -1,6 +1,6 @@
 {
   "name": "lucida-slides",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "YAML-native slide deck builder — content + theme → standalone HTML or 16:9 PDF",
   "type": "module",
   "bin": {

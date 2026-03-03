@@ -760,6 +760,12 @@ async function main() {
   const openAfter = args.includes("--open");
   const files = args.slice(1).filter((a) => !a.startsWith("--"));
 
+  if (command === "--version" || command === "-v" || command === "-V") {
+    const pkg = JSON.parse(readFileSync(resolve(ROOT, "package.json"), "utf-8"));
+    console.log(pkg.version);
+    process.exit(0);
+  }
+
   if (!command || command === "--help" || command === "-h") {
     console.log(`lucida — slide deck builder
 

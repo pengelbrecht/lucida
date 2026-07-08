@@ -1,0 +1,112 @@
+meta:
+  title: "Project Uplift — Monthly Performance — June 2026"
+  theme: navy
+  footer: "Supermarco &middot; Project Uplift &middot; June 2026 (data through 31 May)"
+  lang: en
+
+slides:
+
+  # ── SLIDE 1: HERO ───────────────────────────────────────────────
+  - variant: hero
+    label: "Project Uplift --- Monthly Performance"
+    title: "Café hike confirmed --- and it's structural"
+    title_style: "font-size:46px;"
+    subtitle: "June 2026 edition --- data through 31 May. One initiative is live in-window: the café price hike (started 27 Apr), measured from the warehouse and anchored since 1 May. Fatto in Casa launched 3 June (after cutoff) and reports first in July. Project Uplift targets **+1.0M DKK/yr** --- the two pricing levers cover ~two-thirds of it."
+    subtitle_style: "font-size:17px;max-width:800px;"
+    kpis:
+      - value: "+3.9%"
+        label: "café rev/open-day YoY (May, apples-to-apples)"
+      - value: "+5.2pp"
+        label: "causal lift (DiD), net of seasonality"
+      - value: "~+500K"
+        label: "DKK/yr run-rate (provisional)"
+
+  # ── SLIDE 2: OVERALL PERFORMANCE ────────────────────────────────
+  - label: "Overall performance"
+    title: "Café confirmed; Fatto in Casa launches next edition"
+    subtitle: "Performance through 31 May, computed monthly from the warehouse. Fatto in Casa launched 3 June (after this edition's cutoff) and reports first in July."
+    layout: cols
+    layout_style: "grid-template-columns: 1fr;"
+    columns:
+      - content:
+          - stat_boxes:
+              - value: "~+500K"
+                label: "DKK/yr café (realized)"
+                color: green
+              - value: "~+177K"
+                label: "DKK/yr Fatto (modelled, CI)"
+                color: amber
+              - value: "~677K / 1.0M"
+                label: "of Project Uplift goal (68%)"
+          - table:
+              headers: ["Initiative", "Start date", "Status", "This edition", "Annual GP impact"]
+              rows:
+                - row: ["Café price hike", "27 Apr 2026", "Confirmed", "Through 31 May", {text: "~+500K", color: green, bold: true}]
+                  highlight: green
+                - row: ["Fatto in Casa", "3 Jun 2026", "Launched", "Next edition (July)", {text: "~+177K modelled", color: amber, bold: true}]
+          - callout:
+              color: navy
+              title: "Where we are vs the 1.0M DKK goal"
+              text: "Café is **realized ~+500K/yr** (YoY +3.9% per open-day on a ~−1.3% pre-trend → +5.2pp DiD; one post-month, provisional). Fatto in Casa launched **3 Jun**, modelled **~+177K** GP (Counter Insight scenario, ~5–7% on the home-made line, prices finalized by Sarah). Together **~677K --- 68% of the 1.0M goal**; the pipeline (bundles, wine, vendor terms, space) closes the rest."
+
+  # ── SLIDE 3: CAFÉ PRICE HIKE ────────────────────────────────────
+  - label: "Initiative --- Café price hike (started 27 Apr 2026)"
+    title: "Café: the May step-up holds"
+    subtitle: "Calendar-month: **May = 791K DKK (+22.9% MoM), 32,969 per open-day (+12.8%)**. No line-level café cost in Uniconta, so revenue --- not margin --- is the clean signal. Elasticity ≈ −0.01: captive demand."
+    layout: cols
+    layout_style: "grid-template-columns: 3fr 2fr;"
+    columns:
+      - card: "Monthly rev/open-day (DKK) --- 2026 tracks 2025, splits in May"
+        content:
+          - line_chart:
+              height: 100
+              lines:
+                - label: "2025"
+                  color: primary
+                  fill: false
+                  points: [24249, 27842, 34645, 29965, 31739]
+                - label: "2026"
+                  color: green
+                  points: [23991, 27346, 34657, 29239, 32969]
+              x_labels: ["Jan", "Feb", "Mar", "Apr", "May"]
+          - table:
+              headers: ["May, per open-day (YoY)", "2025", "2026", "YoY"]
+              rows:
+                - ["Revenue / open-day", "31,739", "32,969", {text: "+3.9%", color: green, bold: true}]
+                - ["Avg basket (DKK)", "73.5", "77.9", {text: "+6.0%", color: green, bold: true}]
+                - ["Baskets / open-day", "432", "423", "−2.0%"]
+      - content:
+          - callout:
+              color: navy
+              title: "Net of seasonality"
+              text: "YoY, rev/open-day is **+3.9%** against a ~**−1.3%** Jan–Apr pre-hike trend → difference-in-differences ≈ **+5.2pp**, net of seasonality. Avg basket rose **72.3 → 77.9** with traffic flat --- more spend per visit."
+          - callout:
+              color: gold
+              title: "Run-rate (provisional)"
+              text: "~**+500K DKK/yr** incremental (DiD vs the Jan–Apr pre-trend) --- one full post-month so far. Café costs are largely fixed → nearly all flows to gross profit."
+
+  # ── SLIDE 4: OUTLOOK (CLOSE) ────────────────────────────────────
+  - variant: dark
+    label: "Outlook --- next up"
+    title: "Next up across Project Uplift"
+    summary_grid:
+      items:
+        - value: "~+500K"
+          label: "DKK/yr café (realized)"
+          color: green
+        - value: "~+177K"
+          label: "DKK/yr Fatto (modelled)"
+          color: gold
+        - value: "~677K / 1.0M"
+          label: "progress to goal (68%)"
+    actions:
+      - num: 1
+        text: "**Fatto in Casa** --- first post-launch weeks (8 Jun+); July edition delivers the realized verdict vs the ~177K modelled."
+      - num: 2
+        text: "**Oil &amp; balsamico bundles** --- finalize the hard-vs-soft decision (hard bundles guarantee the combination; FlexPOS soft-bundles can't enforce one-of-each)."
+      - num: 3
+        text: "**Vendor management** --- produce the concrete supplier plan (payment terms, consolidation)."
+      - num: 4
+        text: "**Wine pricing** --- build and review pricing scenarios for the wine range."
+      - num: 5
+        text: "**Space management** --- shop-floor layout and space-to-sales analysis."

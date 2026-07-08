@@ -1,0 +1,145 @@
+meta:
+  title: "Project Uplift — Monthly Performance — July 2026"
+  theme: navy
+  footer: "Supermarco &middot; Project Uplift &middot; July 2026 (data through 30 June)"
+  lang: en
+
+slides:
+
+  # ── SLIDE 1: HERO ───────────────────────────────────────────────
+  - variant: hero
+    label: "Project Uplift --- Monthly Performance"
+    title: "The price increases are working --- café holds, kitchen off to a strong start"
+    title_style: "font-size:42px;"
+    subtitle: "July 2026 edition --- sales through 30 June. Two price changes are live: the café (from 27 April) and the homemade kitchen range (from 3 June). Every number is like-for-like: **same weekdays, same products, measured against how busy the whole store was.** For each initiative: what we planned, what we're seeing, what we now project. Project Uplift targets **+1.0M DKK/yr** extra profit."
+    subtitle_style: "font-size:17px;max-width:840px;"
+    kpis:
+      - value: "~+350K"
+        label: "DKK/yr café profit, measured (two months in)"
+      - value: "+7.4%"
+        label: "kitchen shelf profit per day vs last year (first month)"
+      - value: "~55%"
+        label: "of the 1.0M goal covered by the two live changes"
+
+  # ── SLIDE 2: OVERALL PERFORMANCE ────────────────────────────────
+  - label: "Overall performance"
+    title: "Both price changes live --- about 55% of the goal covered"
+    subtitle: "Sales through 30 June, straight from the warehouse. The café is now measured on the same department as the weekly FlexPOS café report, so the numbers line up."
+    layout: cols
+    layout_style: "grid-template-columns: 1fr;"
+    columns:
+      - content:
+          - stat_boxes:
+              - value: "~+350K"
+                label: "DKK/yr café (measured, early estimate)"
+                color: green
+              - value: "~+200K"
+                label: "DKK/yr kitchen (projected; plan was +239K)"
+                color: amber
+              - value: "~550K / 1.0M"
+                label: "of Project Uplift goal (55%)"
+          - table:
+              headers: ["Initiative", "Start date", "Status", "This edition", "Yearly profit"]
+              rows:
+                - row: ["Café price increase", "27 Apr 2026", "Confirmed", "Two months of results", {text: "~+350K measured", color: green, bold: true}]
+                  highlight: green
+                - row: ["Kitchen range (Fatto in Casa)", "3 Jun 2026", "Launched", "First month of results", {text: "~+200K projected", color: amber, bold: true}]
+          - callout:
+              color: navy
+              title: "Why the numbers moved --- honest corrections, not a drop in performance"
+              text: "**Café ~500K → ~350K:** we now measure the café on the **same department as the weekly FlexPOS report** (the old slice missed part of café trade), and two months of results settle the estimate. **Kitchen +239K → ~+200K:** customers turned out slightly more price-aware than the pricing tool assumed (next slide has the plan-vs-reality numbers), so we project a bit under plan. Both changes are clearly profitable. The remaining ~450K comes from the pipeline: wine pricing and space management."
+
+  # ── SLIDE 3: CAFÉ PRICE INCREASE ────────────────────────────────
+  - label: "Initiative --- Café price increase (from 27 Apr 2026)"
+    title: "Café: the higher prices are holding"
+    subtitle: "June = **962K DKK revenue, ~37,000 per open day**. No product costs in the till system for the café, so we track revenue. Like-for-like: same weekdays, measured against whole-store footfall."
+    layout: cols
+    layout_style: "grid-template-columns: 3fr 2fr;"
+    columns:
+      - card: "Revenue per open day (DKK) --- 2026 vs 2025"
+        content:
+          - line_chart:
+              height: 62
+              lines:
+                - label: "2025"
+                  color: primary
+                  fill: false
+                  points: [24605, 29801, 36148, 32021, 33958, 37413]
+                - label: "2026"
+                  color: green
+                  points: [24842, 28022, 35768, 31079, 34834, 36999]
+              x_labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"]
+          - table:
+              headers: ["June, per open day (vs last year)", "2025", "2026", "Change"]
+              rows:
+                - ["Revenue per day", "37,413", "36,999", {text: "level*", color: green, bold: true}]
+                - ["Spend per customer (DKK)", "78.3", "80.2", {text: "+2.4%", color: green, bold: true}]
+                - ["Customers per day", "478", "462", "−3.3% --- same dip as the whole store"]
+      - content:
+          - table:
+              headers: ["Plan vs reality", "Planned", "Seen so far"]
+              rows:
+                - ["Prices on same items", "~+6%", {text: "+6.5% --- held, no rollback", color: green, bold: true}]
+                - ["Volume response", "−5% per 10%", "none seen"]
+                - ["Profit per year", "+561K (tool)", {text: "~+350K measured (2 months)", color: green, bold: true}]
+          - callout:
+              color: navy
+              title: "Is the café slipping? No."
+              text: "*June looks 1% down --- but this June had more Mondays, our quietest day. Same weekdays against same weekdays, the café **matched its best June ever**. Customers were down 2% --- so was the **whole store**. That's summer footfall, not the prices."
+          - callout:
+              color: gold
+              title: "June per day: prices +450 kr, buying habits −390 kr"
+              text: "Higher prices added **+450 kr/day**; the summer buying mix (more of the lightly-raised items) took **−390 kr/day**. May customers paid the full increase, June's mix only ~+1% --- so we count **~350K** for now, not the tool's 561K."
+  # ── SLIDE 4: KITCHEN RANGE / FATTO IN CASA ──────────────────────
+  - label: "Initiative --- Kitchen range, Fatto in Casa (from 3 Jun 2026)"
+    title: "Kitchen: higher prices stuck --- shelf profit up 7.4%"
+    subtitle: "The homemade range (lasagne, tiramisu, pasta kits...). First month with new prices --- early read. Like-for-like: same weekdays, same products, measured against store footfall."
+    layout: cols
+    layout_style: "grid-template-columns: 3fr 2fr;"
+    columns:
+      - card: "June in the shop (vs last year, same weekdays)"
+        content:
+          - table:
+              headers: ["", "2025", "2026", "Change"]
+              rows:
+                - ["Prices, same 20 products", "—", "—", {text: "+5.0%", color: green, bold: true}]
+                - ["Units of those products", "—", "—", "−5.8% raw"]
+                - ["... beyond store footfall", "—", "—", "−3.7% (store itself was −2.1%)"]
+                - ["Shelf revenue per day", "12,669", "12,781", {text: "+0.9%", color: green}]
+                - ["Shelf profit per day", "7,077", "7,603", {text: "+7.4%", color: green, bold: true}]
+                - ["Profit margin", "55.9%", "59.5%", {text: "+3.6pp", color: green, bold: true}]
+      - content:
+          - table:
+              headers: ["Plan vs reality", "Planned", "Seen so far"]
+              rows:
+                - ["Prices on same items", "+5–7%", {text: "+5.0% --- stuck", color: green, bold: true}]
+                - ["Volume response", "−5% per 10% price", "−7% per 10% (after footfall)"]
+                - ["Profit per year", "+239K (pricing tool)", {text: "now projecting ~+200K", color: amber, bold: true}]
+          - callout:
+              color: navy
+              title: "Why total kitchen sales looked soft (−4.6%)"
+              text: "The whole store had **~2% fewer customers**, and last June had **one big event order** that didn't repeat. On the shelf itself, **profit per day is up 7.4%**. Watch: **basil pesto −32%** --- price or season?"
+          - callout:
+              color: gold
+              title: "A bit more price-aware than planned --- still clearly profitable"
+              text: "~7% fewer units per 10% price (planned ~5%) trims the projection to ~**+200K/yr**. Big safety margin: units would have to drop ~**16%** per 10% before a rise cost us money."
+
+  # ── SLIDE 5: OUTLOOK (CLOSE) ────────────────────────────────────
+  - variant: dark
+    label: "Outlook --- next up"
+    title: "Next up across Project Uplift"
+    summary_grid:
+      items:
+        - value: "~+350K"
+          label: "DKK/yr café (measured, early)"
+          color: green
+        - value: "~+200K"
+          label: "DKK/yr kitchen (projected)"
+          color: gold
+        - value: "~550K / 1.0M"
+          label: "progress to goal (55%)"
+    actions:
+      - num: 1
+        text: "**Wine pricing** --- build and review pricing scenarios for the wine range."
+      - num: 2
+        text: "**Space management** --- shop-floor layout and space-to-sales analysis."

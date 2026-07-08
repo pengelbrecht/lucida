@@ -1,0 +1,117 @@
+meta:
+  title: "Project Uplift — Intermediate Update — 15 June 2026"
+  theme: navy
+  footer: "Supermarco &middot; Project Uplift &middot; Intermediate (data through 15 June 2026)"
+  lang: en
+
+slides:
+
+  # ── SLIDE 1: HERO ───────────────────────────────────────────────
+  - variant: hero
+    label: "Project Uplift --- Intermediate Update"
+    title: "Both levers live --- and early June is up"
+    title_style: "font-size:44px;"
+    subtitle: "Mid-cycle snapshot --- data through **15 June** (the full June edition reported through 31 May). Both pricing levers are now in-window: the **café price hike** (live 27 Apr) and **Fatto in Casa** (live 3 Jun). Early-June reads are **provisional** and ISO-week aligned. Project Uplift targets **+1.0M DKK/yr**."
+    subtitle_style: "font-size:17px;max-width:820px;"
+    kpis:
+      - { value: "~800K / 1.0M", label: "modelled GP --- 80% of goal" }
+      - { value: "+1.4%", label: "café rev/open-day YoY (week 23, ISO-week aligned)" }
+      - { value: "+1.8pp", label: "Fatto margin YoY (week 23; +9.3pp wk24, provisional)" }
+
+  # ── SLIDE 2: OVERALL / PORTFOLIO ────────────────────────────────
+  - label: "Overall performance"
+    title: "Both pricing levers now live; ~80% of the goal modelled"
+    subtitle: "Mid-cycle status through 15 June, computed from the warehouse. Early-June figures are provisional (13 open-days); the realized verdicts land in the full July edition."
+    layout: cols
+    layout_style: "grid-template-columns: 1fr;"
+    columns:
+      - content:
+          - stat_boxes:
+              - { value: "~+560K", label: "DKK/yr café (modelled GP, CI)", color: green }
+              - { value: "~+239K", label: "DKK/yr Fatto (modelled GP, CI)", color: amber }
+              - { value: "~800K / 1.0M", label: "of Project Uplift goal (80%)" }
+          - table:
+              headers: ["Initiative", "Live since", "Status", "Early-June read (provisional)", "Modelled annual GP"]
+              rows:
+                - row: ["Café price hike", "27 Apr 2026", "Confirmed", "Rev/open-day +1.4% YoY (week 23, ISO-week)", {text: "~+560K", color: green, bold: true}]
+                  highlight: green
+                - row: ["Fatto in Casa", "3 Jun 2026", "Launched", "Margin +1.8pp YoY (wk23; +9.3pp wk24)", {text: "~+239K", color: amber, bold: true}]
+          - callout:
+              color: navy
+              title: "Where we are vs the 1.0M DKK goal"
+              text: "Both levers are live. Modelled GP **~800K/yr = 80% of the goal** (Counter Insight *Cafe + Fatto in Casa* scenario, sliced **560K café / 239K Fatto**). Early-June reads (ISO-week aligned) are provisional and **up** --- café **+1.4% YoY** at the higher prices on the clean week 23 (warehouse) / +2.5% (FlexPOS café report), Fatto margin **+1.8pp** (wk23) rising to **+9.3pp** (wk24). The pipeline (bundles, wine, vendor terms, space) is being scoped to close the remaining ~200K."
+
+  # ── SLIDE 3: CAFÉ PRICE HIKE ────────────────────────────────────
+  - label: "Initiative --- Café price hike (started 27 Apr 2026)"
+    title: "Café: holding up at the higher prices"
+    subtitle: "Through May the step-up held (**May +3.9%** rev/open-day YoY). Aligned by **ISO week**, early June is **up** --- week 23 (the clean, fully-comparable week) is **+1.4%** (warehouse) / **+2.5%** (FlexPOS café report). The earlier −5.6% read was a calendar artifact. Revenue --- not margin --- is the clean café signal."
+    layout: cols
+    layout_style: "grid-template-columns: 3fr 2fr;"
+    columns:
+      - card: "Monthly rev/open-day (DKK) --- 2026 tracks 2025 through May"
+        content:
+          - line_chart:
+              height: 95
+              lines:
+                - { label: "2025", color: primary, fill: false, points: [24249, 27842, 34645, 29965, 31739] }
+                - { label: "2026", color: green, points: [23991, 27346, 34657, 29239, 32969] }
+              x_labels: ["Jan", "Feb", "Mar", "Apr", "May"]
+          - table:
+              headers: ["Week 23 (clean, 6 v 6 open days)", "2025", "2026", "YoY"]
+              rows:
+                - ["Rev/open-day --- warehouse (store 30)", "35,382", "35,874", {text: "+1.4%", color: green, bold: true}]
+                - ["Café total --- FlexPOS report (incl VAT)", "262,156", "268,666", {text: "+2.5%", color: green, bold: true}]
+                - ["Direction", "—", "—", {text: "up, not softening", color: green, bold: true}]
+      - content:
+          - callout:
+              color: navy
+              title: "The −5.6% was a calendar artifact"
+              text: "The earlier −5.6% came from a *calendar* Jun 1--15 window holding **3 low-revenue Mondays** in 2026 vs **1** in 2025 (Pinse closed Mon 9 Jun 2025). Aligned by **ISO week**, café is up: week 23 --- the fully-comparable week --- is **+1.4%** (warehouse) / **+2.5%** (FlexPOS café report)."
+          - callout:
+              color: gold
+              title: "Holding up --- provisional"
+              text: "Café revenue is **holding / modestly up** at the higher prices --- not softening. The **~+560K/yr** modelled GP gain (Counter Insight) stays intact. (Week-24 YoY is distorted by the 2025 Pinse holiday and a small warehouse-vs-FlexPOS reconciliation gap still under review; week 23 is the clean read.)"
+
+  # ── SLIDE 4: FATTO IN CASA ──────────────────────────────────────
+  - label: "Initiative --- Fatto in Casa (started 3 Jun 2026)"
+    title: "Fatto in Casa: early read positive on margin"
+    subtitle: "Launched **3 June**, so this is its first ~2 weeks. Real line cost (costed), so **margin** is the signal. Aligned by **ISO week**, margin is up: **week 23 +1.8pp**, **week 24 +9.3pp** (65.3% vs 56.0%). Provisional --- one realized week so far."
+    layout: cols
+    layout_style: "grid-template-columns: 3fr 2fr;"
+    columns:
+      - card: "Monthly margin % (KØKKEN PRODUKTION) --- volatile without the lever"
+        content:
+          - line_chart:
+              height: 95
+              lines:
+                - { label: "2025", color: primary, fill: false, points: [57.5, 59.7, 58.3, 57.3, 63.5] }
+                - { label: "2026", color: green, points: [57.4, 56.9, 56.2, 60.7, 62.1] }
+              x_labels: ["Jan", "Feb", "Mar", "Apr", "May"]
+          - table:
+              headers: ["Margin %, by ISO week (YoY)", "2025", "2026", "YoY"]
+              rows:
+                - ["Week 23", "56.4", "58.2", {text: "+1.8pp", color: green, bold: true}]
+                - ["Week 24 (first full post-launch wk)", "56.0", "65.3", {text: "+9.3pp", color: green, bold: true}]
+                - ["Week 24 rev/open-day (DKK)", "12,327", "17,502", {text: "up", color: green, bold: true}]
+      - content:
+          - callout:
+              color: navy
+              title: "Directionally positive --- provisional"
+              text: "Margin is up both weeks (**+1.8pp**, **+9.3pp**), with week 24 the first full post-launch week. Only ~2 weeks in, and this line is naturally volatile (56--63% with no lever), so it's an early read --- the **July edition** delivers the realized verdict. (Week-24 2025 had the Pinse holiday, so read the margin, not the revenue total.)"
+          - callout:
+              color: gold
+              title: "Modelled --- ~+239K/yr"
+              text: "Counter Insight scenario (sliced from the combined *Cafe + Fatto in Casa* save). The early read is **directionally consistent** --- margin up YoY both weeks. Ask Sarah for a Fatto-only scenario to retire the mixed-slice caveat."
+
+  # ── SLIDE 5: OUTLOOK (CLOSE) ────────────────────────────────────
+  - variant: dark
+    label: "Outlook --- mid-June status"
+    title: "Where Project Uplift stands --- mid-June"
+    summary_grid:
+      items:
+        - { value: "~+560K", label: "DKK/yr café (modelled)", color: green }
+        - { value: "~+239K", label: "DKK/yr Fatto (modelled)", color: gold }
+        - { value: "~800K / 1.0M", label: "progress to goal (80%)" }
+    actions:
+      - { num: 1, text: "**Café** --- early June is up (week 23 +1.4% / +2.5% FlexPOS); reconcile the small warehouse-vs-FlexPOS café gap on week 24 and confirm the full-month read at month-end." }
+      - { num: 2, text: "**Fatto in Casa** --- the **July edition** (data through 30 Jun) delivers the first realized verdict vs the ~239K modelled." }
